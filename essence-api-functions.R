@@ -1,0 +1,92 @@
+library(jsonlite)
+library(httr)
+library(magrittr)
+library(dplyr)
+library(keyring)
+library(tidyverse)
+library(lubridate)
+
+#function to get data from NSSP 
+NSSP_GET = function(url){
+  #download NSSP API url, get username and password, and error check for incorrect username/password
+  
+  #enter NSSP username and then password if not in system- only has to be done once per computer
+  if(!("NSSP_username" %in% key_list()$service)|!("NSSP_password" %in% key_list()$service)){
+    message("Enter NSSP username")
+    key_set("NSSP_username")
+    message("Enter NSSP password")
+    key_set("NSSP_password")
+  }
+  
+  #authenticate and download ESSENCE API url
+  out = GET(url,
+            authenticate(key_get("NSSP_username"), key_get("NSSP_password")))
+  
+  #ask for username and password again if exit status is 401
+  if(out$status_code == 401){ 
+    message("Invalid user credentials, try again\n")
+    key_delete("NSSP_password")
+    NSSP_GET(url)
+  }
+  
+  else{return(out)}
+}
+
+#function to call NSSP get function and format output
+nssp_get_table = function(url){
+  #download NSSP API url as a table (transformed from JSON) 
+  if(grepl("dataDetails", url, ignore.case = T)){
+    if(grepl("csv\\?",url, ignore.case = T)){
+      table = content(NSSP_GET(url), as = "text", encoding = "UTF-8") %>% read_csv() 
+    }
+    else{
+      table = content(NSSP_GET(url), as = "text", encoding = "UTF-8") %>%
+        fromJSON %>%
+        extract2("dataDetails")
+    }
+  }
+  else{
+    table =  NSSP_GET(url) %>% content() #extract table contents
+    if(length(table) == 1){ #sometimes all in single upper level list
+      table = table[[1]]
+    }
+    else if(length(table) == 2 & length(table[[1]] == 1)){ #time series data formatted like this
+      table = table[[2]]
+    }
+    table = lapply(table, function(x){return(x)}) %>% bind_rows() #format to dataframe structure
+  }
+  return(table)
+}
+
+nssp_get_time_series = function(url, columns = c("date", "count"), name = NULL){
+  table = nssp_get_table(url) %>%
+    select(columns)
+  
+  if("date" %in% columns){
+    table %<>% mutate(date = as.Date(date))
+  }
+  
+  if(!is.null(name)){
+    table %<>% mutate(name = name)
+  }
+  
+  return(table)
+}
+
+#Format date for essence API based on today's date or given date
+essence_api_date = function(date = NULL, days_ago = NULL){
+  if(!is.null(date)){
+    if(class(date) == "character"){
+      date = as.Date(date)
+    }
+    return(format(date, "%d%b%Y"))
+  }
+  
+  else if (!is.null(days_ago)){
+    return(format(Sys.Date() - days_ago, "%d%b%Y"))
+  }
+  
+  else{
+    return(format(Sys.Date(), "%d%b%Y"))
+  }
+}
