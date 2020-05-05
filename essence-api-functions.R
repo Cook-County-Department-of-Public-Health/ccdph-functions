@@ -104,5 +104,3 @@ essence_change_api_date = function(url, start = NULL, end = NULL){
   }
   return(url)
 }
-
-#testing
