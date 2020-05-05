@@ -58,7 +58,10 @@ nssp_get_table = function(url){
   return(table)
 }
 
-nssp_get_time_series = function(url, columns = c("date", "count"), name = NULL){
+#Calls NSSP get_table but selects only needed column and can add a name column for future rbinding
+nssp_get_time_series = function(url, columns = c("date", "count"), name = NULL, startDate = NULL, endDate = NULL){
+  url = essence_change_api_date(url, startDate, endDate)
+  
   table = nssp_get_table(url) %>%
     select(columns)
   
@@ -89,4 +92,15 @@ essence_api_date = function(date = NULL, days_ago = NULL){
   else{
     return(format(Sys.Date(), "%d%b%Y"))
   }
+}
+
+#Change start and end date in url
+essence_change_api_date = function(url, start = NULL, end = NULL){
+  if(!is.null(end)){
+    url = gsub("endDate=.*?&", paste0("endDate=",end, "&"), url)
+  }
+  if(!is.null(start)){
+    url = gsub("startDate=.*?&", paste0("startDate=",start, "&"), url)
+  }
+  return(url)
 }
