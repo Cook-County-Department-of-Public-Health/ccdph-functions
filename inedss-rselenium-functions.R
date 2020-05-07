@@ -97,11 +97,19 @@ search_scn = function(caseNumber){
   }
 }
 
-#Assign an investigator from inside Case Summary page
+#Assign an investigator
 assign_investigator = function(caseNumber, investigator){
   
   search_scn(caseNumber)
   wait_page("Case Summary")
+  
+  #Check to see if case has been transferred
+  jurisdiction = get_text(".NoBorderFull > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2)")
+  
+  if(jurisdiction != "Cook County Department of Public Health"){
+    message(paste(caseNumber, "has been transferred to", jurisdiction))
+    return()
+  }
   
   #Click Assign Investigator
   click("fieldset.fieldsetHeader:nth-child(6) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > a:nth-child(1)")
@@ -136,4 +144,10 @@ assign_investigator = function(caseNumber, investigator){
   
   #Close
   #click("input[value = \"Close\"]") #takes too long, don't think it's necessary
+}
+
+#transfer cases
+transfer = function(caseNumber, jurisdiction){
+  search_scn(caseNumber)
+  
 }
