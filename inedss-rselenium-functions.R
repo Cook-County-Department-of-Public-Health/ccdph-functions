@@ -527,15 +527,10 @@ transfer = function(caseNumber, jurisdiction){
     jurisdiction_select = read_csv("jurisdiction_selections_list.csv", col_types = cols())
   }
   
-<<<<<<< HEAD
   if(toupper(jurisdiction) %in% toupper(jurisdiction_select$county)){ 
     #If county name, translate to dropdown selection name
     jurisdiction = jurisdiction_select$selection[toupper(jurisdiction_select$county) == toupper(jurisdiction)]
-=======
-  if(jurisdiction %in% jurisdiction_select$county){ 
-    #If county name, translate to dropdown selection name
-    jurisdiction = jurisdiction_select$selection[jurisdiction_select$county == jurisdiction]
->>>>>>> 51d4cf7b3516386ff3743268a050bc5d91d567ef
+
     
   }else if(jurisdiction %in% jurisdiction_select$selection){
     #If already selection name, do nothing
