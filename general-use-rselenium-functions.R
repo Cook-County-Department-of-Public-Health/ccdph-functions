@@ -119,8 +119,21 @@ select_drop_down_na <- function(element, selection, selectorType = "css", field 
 }
 
 
-#Get text of an element
-get_text = function(element, selectorType = "css"){
-  rD$findElement(using = selectorType, value = element)$getElementText()[[1]]
+#Get text of an element 
+#(put textbox = TRUE if looking for text written into textbox, textbox = FALSE if text written on page)
+get_text = function(element, selectorType = "css", textbox = FALSE){
+  if(textbox == FALSE){
+    rD$findElement(using = selectorType, value = element)$getElementText()[[1]]
+  }else{
+    rD$findElement(using = selectorType, value = element)$getElementAttribute("value")[[1]]
+  }
+}
+
+#translate name or value to css
+value.is = function(value){
+  paste0('input[value = \"', value, '\"]')
+}
+name.is = function(name){
+  paste0('input[name = \"', name, '\"]')
 }
 
