@@ -173,7 +173,7 @@ transfer = function(caseNumber, jurisdiction){
   
   #Translate county name to health department name in select dropdown menu
   if(!exists("jurisdiction_select")){
-    jurisdiction_select = read_csv("jurisdiction_selections_list.csv", col_types = cols())
+    #jurisdiction_select = read_csv("jurisdiction_selections_list.csv", col_types = cols())
   }
   
   if(toupper(jurisdiction) %in% toupper(jurisdiction_select$county)){ 
