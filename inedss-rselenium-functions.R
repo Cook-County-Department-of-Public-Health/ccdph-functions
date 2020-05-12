@@ -167,7 +167,7 @@ assign_investigator = function(caseNumber, investigator){
 
 #============TRANSFER CASE==========#
 #transfer cases
-jurisdiction_select = read_csv("jurisdiction_selections_list.csv", col_types = cols())
+#jurisdiction_select = read_csv("jurisdiction_selections_list.csv", col_types = cols())
 
 transfer = function(caseNumber, jurisdiction){
   
