@@ -2,7 +2,7 @@ library(RSelenium)
 library(keyring)
 library(purrr)
 
-source("general-use-rselenium-functions.R")
+#source("general-use-rselenium-functions.R")
 
 #=================LOGGING INTO THE I-NEDSS PORTAL======================#
 
