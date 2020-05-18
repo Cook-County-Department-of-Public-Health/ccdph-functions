@@ -88,7 +88,7 @@ click_dashboard = function(){
 
 #============WAIT FOR PAGE TO LOAD==========#
 #Wait for a given page to load, return false if not there by end of waitTime
-wait_page = function(pageName, waitTime = 10){
+wait_page = function(pageName, waitTime = 30){
   #Give time to load
   c = 0
   while(current_page()!=pageName & c < waitTime){
