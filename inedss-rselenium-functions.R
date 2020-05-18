@@ -91,7 +91,7 @@ click_dashboard = function(){
 wait_page = function(pageName, waitTime = 30){
   #Give time to load
   c = 0
-  while(current_page()!=pageName & c < waitTime){
+  while(try(current_page(), silent = T)!=pageName & c < waitTime){
     Sys.sleep(1)
     c = c+1
     if(c == waitTime-1){
