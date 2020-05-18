@@ -119,6 +119,16 @@ select_drop_down_na <- function(element, selection, selectorType = "css", field 
 }
 
 
+#See if dropdown menu has NA selected
+dropdown_is_na = function(element, selectorType = "css"){
+  dropdown = rD$findElement(using = selectorType, element)
+  na_option_index = which(dropdown$selectTag()$text == "")[1]
+  na_option = dropdown$findChildElements("css", "option")[[1]]
+  return(na_option$isElementSelected()[[1]])
+  
+}
+
+
 #Get text of an element 
 #(put textbox = TRUE if looking for text written into textbox, textbox = FALSE if text written on page)
 get_text = function(element, selectorType = "css", textbox = FALSE){
