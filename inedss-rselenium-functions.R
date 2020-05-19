@@ -132,6 +132,7 @@ assign_investigator = function(caseNumber, investigator){
   
   #Click Assign Investigator
   click("fieldset.fieldsetHeader:nth-child(6) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > a:nth-child(1)")
+  wait_page("Assign Investigator")
   
   #Investigators dropdown menu
   investigatorsMenu = rD$findElement(using = "css", value = "#investigator")
