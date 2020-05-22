@@ -167,6 +167,7 @@ assign_investigator = function(caseNumber, investigator){
 }
 
 
+#===========CLICK LINK IN CASE SUMMARY PAGE=============#
 #Click a Link by it's text from the Case Summary page
 click_link = function(text){
   links = rD$findElements(using = "css", ".menuLink")
