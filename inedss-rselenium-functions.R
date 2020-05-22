@@ -166,3 +166,15 @@ assign_investigator = function(caseNumber, investigator){
   #click("input[value = \"Close\"]") #takes too long, don't think it's necessary
 }
 
+
+#Click a Link by it's text from the Case Summary page
+click_link = function(text){
+  links = rD$findElements(using = "css", ".menuLink")
+  link_names = sapply(1:length(links), function(x){
+    link = links[[x]]
+    link$getElementText()[[1]]
+  })
+  index = which(link_names == text)
+  link = links[[index]]
+  link$clickElement()
+}
