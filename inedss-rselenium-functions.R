@@ -130,6 +130,14 @@ assign_investigator = function(caseNumber, investigator){
     return()
   }
   
+  #Check to see if case has been closed
+  case_status = get_text("#container > div:nth-child(4) > form:nth-child(4) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(4)")
+  if(case_status == "Closed"){
+    message(paste(caseNumber, "has been Closed"))
+    return()
+  }
+  
+  
   #Click Assign Investigator
   click("fieldset.fieldsetHeader:nth-child(6) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > a:nth-child(1)")
   wait_page("Assign Investigator")
