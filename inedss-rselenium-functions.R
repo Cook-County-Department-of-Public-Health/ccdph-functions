@@ -40,8 +40,16 @@ login_inedss = function(){
   #Finding production apps button
   rD$findElement(using = "xpath", value = '//*[@id="zz6_RootAspMenu"]/li/ul/li[1]/a')$clickElement()
   
-  #Finding INEDSS buttons  -- IMPORTANT: XPATH WILL BE DIFFERENT DEPENDING ON APPS USER HAS
-  ifVisiblethenClick('//*[@id="column"]/table[5]/tbody/tr/td[2]/a', selectorType = "xpath") 
+  #Identify production apps present on page
+  appsTableLinks <- rD$findElements("css", "a.dph-applink") 
+  
+  #Store location of INEDSS link  
+  inedssLink <- map_chr(appsTableLinks, function(x) x$getElementText()[[1]]) %>%
+    grepl("I-NEDSS", .) %>%
+    which(. == TRUE)
+  
+  #Click INEDSS link
+  appsTableLinks[[inedssLink]]$clickElement()
   
   #Pausing execution to give time to load page
   Sys.sleep(10)
