@@ -105,7 +105,7 @@ essence_change_api_date = function(url, start = NULL, end = NULL){
   return(url)
 }
 
-#Add a race/ethnicity column
+#Add a race/ethnicity column to a data table pulled that has both Race_flat and Ethnicity_flat colums
 essence_add_race_eth = function(df){
   df %>%
     mutate(
