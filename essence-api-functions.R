@@ -108,18 +108,24 @@ essence_change_api_date = function(url, start = NULL, end = NULL){
 #Add a race/ethnicity column
 essence_add_race_eth = function(df){
   df %>%
-    mutate(raceEth = case_when(
-      grepl(";2135-2;", Ethnicity_flat) ~ "Hispanic/Latino",
-      Race_flat == ";2106-3;" ~ "Non-Hispanic White",
-      Race_flat == ";2054-5;" ~ "Non-Hispanic Black",
-      #Race_flat == ";2131-1;" ~ "Non-Hispanic Other Race",
-      Race_flat == ";2028-9;" ~ "Non-Hispanic Asian",
-      #Race_flat == ";1002-5;" ~ "Non-Hispanic American Indian or Alaska Native",
-      TRUE ~ NA_character_
-    ),
-    raceEth = factor(raceEth, levels = c("Hispanic/Latino", "Non-Hispanic Black", 
-                                         "Non-Hispanic White", "Non-Hispanic Asian"))
-    )
+    mutate(
+      race_temp = gsub(";UNK|;PHC1175|;NR", "", Race_flat),
+      
+      raceEth = case_when(
+        grepl(";2135-2;", Ethnicity_flat) ~ "Hispanic/Latino",
+        race_temp == ";2106-3;" ~ "Non-Hispanic White",
+        race_temp == ";2054-5;" ~ "Non-Hispanic Black",
+        race_temp == ";2131-1;" ~ "Non-Hispanic Other Race",
+        race_temp == ";2028-9;" ~ "Non-Hispanic Asian",
+        race_temp == ";1002-5;" ~ "Non-Hispanic American Indian or Alaska Native",
+        race_temp == ";2076-8;" ~ "Non-Hispanic Native Hawaiian or Other Pacific Islander",
+        race_temp == ";" ~ "Unknown",
+        grepl(";.*;.*;", race_temp) ~ "Non-Hispanic Multiple Races",
+        TRUE ~ "Unknown"
+      )
+      
+    ) %>%
+    select(-race_temp)
   
   
 }
