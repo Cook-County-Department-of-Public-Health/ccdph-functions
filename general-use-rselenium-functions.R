@@ -89,13 +89,24 @@ enter_text_na = function(element, text, selectorType = "css", field = text){
   
 }
 
+#Find a specific (target) element from another's elements children
+#Target element should be identified from the text displayed on the page
+find_child_element <- function(element, child, target, selectorType = "css") {
+  
+  target_location <- rD$findElement(using = selectorType, element)$findChildElements(using = selectorType, child) %>%
+    map_chr(., function(x) x$getElementText()[[1]]) %>%
+    grepl(target, .) %>%
+    which(. == TRUE)
+  
+  return(target_location)
+  
+}
+
 #Select from drop down
 select_drop_down <- function(element, selection, selectorType = "css") {
   
-  #Find unknown option
-  optionChild <- map_chr(rD$findElement(using = selectorType, value = element)$findChildElements("css", "option"), function(x) x$getElementText()[[1]]) %>%
-    grepl(selection, .) %>%
-    which(. == TRUE)
+  #Find option
+  optionChild <- find_child_element(element = element, child = "option", target = selection)
   
   #click option
   click(paste0(element, " > option:nth-child(", optionChild,")"))
@@ -107,11 +118,9 @@ select_drop_down <- function(element, selection, selectorType = "css") {
 select_drop_down_na <- function(element, selection, selectorType = "css", field = selection) {
   
   if (!is.na(field)) {
-    #Find unknown option
-    optionChild <- map_chr(rD$findElement(using = selectorType, value = element)$findChildElements("css", "option"), function(x) x$getElementText()[[1]]) %>%
-      grepl(selection, .) %>%
-      which(. == TRUE)
-    
+    #Find option
+    optionChild <- find_child_element(element = element, child = "option", target = selection)
+
     #click option
     click(paste0(element, " > option:nth-child(", optionChild,")"))
   }
