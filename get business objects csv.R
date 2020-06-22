@@ -7,17 +7,20 @@ library(keyring)
 #key_set("idph_portal")  #set your IDPH web portal password -- only needs to be done once per computer
 
 #Set report name 
-name <- paste0(Sys.Date(), " ")
+name <- paste0(Sys.Date(), "")
 
 #Load helper functions
 devtools::source_url("https://github.com/hsteinberg/ccdph-functions/blob/master/general-use-rselenium-functions.R?raw=TRUE")
 devtools::source_url("https://github.com/hsteinberg/ccdph-functions/blob/master/inedss-rselenium-functions.R?raw=TRUE")
 
 #Setting Firefox to avoid download type
-firefoxProfile <- makeFirefoxProfile(list(browser.helperApps.neverAsk.saveToDisk = "application/comma-separated-values ,text/csv"))
+firefoxProfile <- makeFirefoxProfile(list(browser.helperApps.neverAsk.saveToDisk = "application/comma-separated-values, text/csv, text/plain, application/zip, application/octet-stream"))
 
 #Open selenium session
-start_server()
+remDr <- rsDriver(browser = "firefox", extraCapabilities = firefoxProfile)
+
+#Extract the client for navigation
+rD <- remDr[['client']]
 
 #Navigating to log-in page
 rD$navigate("https://dph.partner.illinois.gov/my.policy")
@@ -83,15 +86,11 @@ click(value.is("Logon"))
 #Pausing execution to give time to log in and load page
 Sys.sleep(60)
 
-#Get into inbox
-#Report in nested iframe so need to get into correct frame first
+#Get into inbox - in nested iframe so need to get into correct frame first
 frames_first <- rD$findElements(using = "tag name", "iframe")
-#length(frames_first)  #1
 rD$switchToFrame(frames_first[[1]])
-
 frames_second <- rD$findElements(using = "tag name", "iframe")
-#length(frames_second) #5
-rD$switchToFrame(frames_second[[5]]) #WORKSSS!!!!
+rD$switchToFrame(frames_second[[5]]) 
 
 #Get titles of unread items in BO inbox
 titles <- character(10)
@@ -105,6 +104,6 @@ click(paste0("#id_", which(grepl(name, titles)) + 52))
 #Pausing execution for 1 minute to give time to download the report
 Sys.sleep(60)
 
-#stop session -- ALWAYS RUN THIS CODE AT THE END TO STOP THE SERVER
-remDr$server$stop() #stop session
+#stop server
+remDr$server$stop() 
 
