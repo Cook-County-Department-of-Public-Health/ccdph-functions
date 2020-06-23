@@ -125,7 +125,7 @@ search_scn = function(caseNumber){
 
 #============ASSIGN INVESTIGATOR==========#
 #Assign an investigator
-assign_investigator = function(caseNumber, investigator){
+assign_investigator = function(caseNumber, investigator, overwrite = F){
   
   search_scn(caseNumber)
   wait_page("Case Summary")
@@ -154,12 +154,15 @@ assign_investigator = function(caseNumber, investigator){
   investigatorsMenu = rD$findElement(using = "css", value = "#investigator")
   
   #Make sure no one assigned yet
-  first = investigatorsMenu$findChildElements("css", "option")[[1]]
-  if(first$isElementSelected() == FALSE){
-    message(paste(caseNumber, "already assigned"))
-    click("input[name = \"cancel\"]")
-    return()
+  if(overwrite == F){
+    first = investigatorsMenu$findChildElements("css", "option")[[1]]
+    if(first$isElementSelected() == FALSE){
+      message(paste(caseNumber, "already assigned"))
+      click("input[name = \"cancel\"]")
+      return()
+    }
   }
+
   
   #Assign investigator
   investigatorsList = investigatorsMenu$selectTag()$text 
