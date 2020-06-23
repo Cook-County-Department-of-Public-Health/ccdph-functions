@@ -139,8 +139,8 @@ assign_investigator = function(caseNumber, investigator, overwrite = F){
   }
   
   #Check to see if case has been closed
-  case_status = get_text("#container > div:nth-child(4) > form:nth-child(4) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(4)")
-  if(case_status == "Closed"){
+  investigation_status = get_text("#container > div:nth-child(4) > form:nth-child(4) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(4)")
+  if(investigation_status == "Closed" | investigation_status == "Completed - Needs Closure"){
     message(paste(caseNumber, "has been Closed"))
     return()
   }
