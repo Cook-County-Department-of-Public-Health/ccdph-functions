@@ -147,7 +147,8 @@ assign_investigator = function(caseNumber, investigator, overwrite = F){
   
   
   #Click Assign Investigator
-  click("fieldset.fieldsetHeader:nth-child(6) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > a:nth-child(1)")
+  #click("fieldset.fieldsetHeader:nth-child(6) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > a:nth-child(1)")
+  click_link("Assign Investigator")
   wait_page("Assign Investigator")
   
   #Investigators dropdown menu
