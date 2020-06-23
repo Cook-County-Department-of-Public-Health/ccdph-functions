@@ -166,7 +166,11 @@ assign_investigator = function(caseNumber, investigator, overwrite = F){
   
   #Assign investigator
   investigatorsList = investigatorsMenu$selectTag()$text 
-  investigatorIndex = which(investigatorsList == investigator)[[1]]
+  if(investigator == ""| investigator == " "){
+    investigatorIndex = 1
+  }else{
+    investigatorIndex = which(investigatorsList == investigator)[[1]]
+  }
   click(paste0("#investigator > option:nth-child(", investigatorIndex,")"))
   
   #Confirm on correct case
