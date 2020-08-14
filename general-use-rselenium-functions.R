@@ -158,6 +158,10 @@ name.is = function(name){
 
 #get vector of text for all elements of a class type
 get_text_class = function(element, selectorType = "css"){
+  if(!grepl("\\.", element)){
+    element = paste0(".", element)
+  }
+  
   rD$findElements(using = "css", element) %>%
     sapply(function(x){x$getElementText()[[1]]})
 }
