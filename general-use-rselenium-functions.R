@@ -158,7 +158,7 @@ name.is = function(name){
 
 #get vector of text for all elements of a class type
 get_text_class = function(element, selectorType = "css"){
-  if(!grepl("^\\.", element)){
+  if(!grepl("^\\.", element)){ #if the element doesn't start with a . it won't work as a class
     element = paste0(".", element)
   }
   
