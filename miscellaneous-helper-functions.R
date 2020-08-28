@@ -1,4 +1,12 @@
 
+#Function to calculate start date for MMWR week for a date
+MMWRweekStart = function(date){
+  year = MMWRweek(date)[[1]]
+  week = MMWRweek(date)[[2]]
+  return(MMWRweek2Date(year, week))
+}
+
+
 
 #Clean common misspellings and inconsistencies in sub-Cook town names from INEDSS records
 clean_towns_INEDDS <- function(towns){
@@ -23,6 +31,7 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("Summit Summit", "Summit", towns)
   towns = gsub("Chicgo", "Chicago", towns)
   towns = gsub("Chcago", "Chicago", towns)
+  towns = gsub("Chicsgo", "Chicago", towns)
   towns = gsub("Desplaines", "Des Plaines", towns)
   towns = gsub("Markjam", "Markham", towns)
   towns = gsub("Matheson", "Matteson", towns)
@@ -61,6 +70,11 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub(",", "", towns)
   towns = gsub("Lansaing", "Lansing", towns)
   towns = gsub("Flossmour", "Flossmoor", towns)
+  towns = gsub("Buffulo Grove", "Buffalo Grove", towns)
+  towns = gsub("Counting Club Hills", "Country Club Hills", towns)
+  towns = gsub("Eveergreen Park", "Evergreen Park", towns)
+  towns = gsub("Forest Park60130", "Forest Park", towns)
+  towns = gsub("Schriller Park", "Schiller Park")
   
   
   #move La Grange Highlands to La Grange
