@@ -74,7 +74,7 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("Counting Club Hills", "Country Club Hills", towns)
   towns = gsub("Eveergreen Park", "Evergreen Park", towns)
   towns = gsub("Forest Park60130", "Forest Park", towns)
-  towns = gsub("Schriller Park", "Schiller Park")
+  towns = gsub("Schriller Park", "Schiller Park", towns)
   
   
   #move La Grange Highlands to La Grange
