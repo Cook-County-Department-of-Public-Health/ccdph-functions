@@ -1,11 +1,16 @@
 
 #Function to calculate start date for MMWR week for a date
+library(MMWRweek)
+
 MMWRweekStart = function(date){
   year = MMWRweek(date)[[1]]
   week = MMWRweek(date)[[2]]
   return(MMWRweek2Date(year, week))
 }
 
+MMWRweekEnd = function(date){
+  MMWRweekStart(date) + 6
+}
 
 
 #Clean common misspellings and inconsistencies in sub-Cook town names from INEDSS records
