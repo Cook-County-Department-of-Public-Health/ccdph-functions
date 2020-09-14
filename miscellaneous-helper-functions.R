@@ -80,6 +80,14 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("Eveergreen Park", "Evergreen Park", towns)
   towns = gsub("Forest Park60130", "Forest Park", towns)
   towns = gsub("Schriller Park", "Schiller Park", towns)
+  towns = gsub("Harwood Heishts", "Harwood Heights", towns)
+  towns = gsub("Harwoods Heights", "Harwood Heights", towns)
+  towns = gsub("Milothian", "Midlothian", towns)
+  towns = gsub("Mount Prosrect", "Mount Prospect", towns)
+  towns = gsub("Oak Foest", "Oak Forest", towns)
+  towns = gsub("Orland Aprk", "Orland Park", towns)
+  towns = gsub("Whjeeling", "Wheeling", towns)
+  towns = gsub("Winnnetka", "Winnetka", towns)
   
   
   #move La Grange Highlands to La Grange
