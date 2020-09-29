@@ -88,6 +88,7 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("Orland Aprk", "Orland Park", towns)
   towns = gsub("Whjeeling", "Wheeling", towns)
   towns = gsub("Winnnetka", "Winnetka", towns)
+  towns = gsub("S Chiacgo Heights", "South Chiacgo Heights", towns)
   
   
   #move La Grange Highlands to La Grange
