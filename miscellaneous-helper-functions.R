@@ -104,3 +104,11 @@ clean_salesforce_report = function(report){
     rename_all(~str_replace_all( ., " |\\/|\\-|\\?|\\:|\\(|\\)", "" )) %>%
     mutate(across(contains("Date"), parse_date_time, orders = c("mdy HM p", "mdy"))) 
 }
+
+#read in a file matching a pattern
+
+#file for getting most recent data for report type
+file_name = function(pattern, path = downloads_path){
+  list.files(path, pattern = paste0(pattern,".*xlsx$"), full.names = T) %>%
+    tail(1)
+}
