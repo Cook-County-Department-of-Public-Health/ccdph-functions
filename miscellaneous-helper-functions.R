@@ -1,4 +1,7 @@
 
+library(tidyverse)
+library(magrittr)
+
 #Function to calculate start date for MMWR week for a date
 library(MMWRweek)
 
@@ -110,5 +113,10 @@ clean_salesforce_report = function(report){
 #file for getting most recent data for report type
 file_name = function(pattern, path = downloads_path, extension = "xlsx"){
   list.files(path, pattern = paste0(pattern,".*", extension, "$"), full.names = T) %>%
+    cbind(file.mtime(.)) %>%
+    set_colnames(c("file", "time")) %>%
+    as_tibble() %>%
+    arrange(time) %>%
+    pull(file) %>%
     tail(1)
 }
