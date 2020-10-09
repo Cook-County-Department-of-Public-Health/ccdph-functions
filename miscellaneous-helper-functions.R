@@ -108,7 +108,7 @@ clean_salesforce_report = function(report){
 #read in a file matching a pattern
 
 #file for getting most recent data for report type
-file_name = function(pattern, path = downloads_path){
-  list.files(path, pattern = paste0(pattern,".*xlsx$"), full.names = T) %>%
+file_name = function(pattern, path = downloads_path, extension = "xlsx"){
+  list.files(path, pattern = paste0(pattern,".*", extension, "$"), full.names = T) %>%
     tail(1)
 }
