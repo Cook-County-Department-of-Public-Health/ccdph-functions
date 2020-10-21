@@ -1,6 +1,7 @@
 
 library(tidyverse)
 library(magrittr)
+library(lubridate)
 
 #Function to calculate start date for MMWR week for a date
 library(MMWRweek)
