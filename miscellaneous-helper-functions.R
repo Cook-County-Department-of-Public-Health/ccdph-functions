@@ -109,6 +109,33 @@ clean_salesforce_report = function(report){
     mutate(across(contains("Date"), parse_date_time, orders = c("mdy HM p", "mdy"))) 
 }
 
+#clean addresses so matching is easier
+clean_addresses = function(address){
+  address = toupper(address)
+  address = gsub("\\.", "", address)
+  
+  address = gsub("\\bN\\b", "NORTH", address)
+  address = gsub("\\bS\\b", "SOUTH", address)
+  address = gsub("\\bE\\b", "EAST", address)
+  address = gsub("\\bSW\\b", "SOUTHWEST", address)
+  address = gsub("\\bNW\\b", "NORTHWEST", address)
+  address = gsub("\\bSE\\b", "SOUTEAST", address)
+  address = gsub("\\bNE\\b", "NORTHEAST", address)
+  
+  address = gsub("\\bHWY\\b", "HIGHWAY", address)
+  address = gsub("\\bRD ", "ROAD", address)
+  address = gsub("\\bST\\b", "STREET", address)
+  address = gsub("\\bAVE\\b", "AVENUE", address)
+  address = gsub("\\bBLVD\\b", "BOULEVARD", address)
+  address = gsub("\\bDR\\b", "DRIVE", address)
+  address = gsub("\\bLN\\b", "LANE", address)
+  
+  address = gsub(" (APT|#|ROOM|RM|UNIT)(| )\\d+", "", address)
+  
+  return(address)
+}
+
+
 #read in a file matching a pattern
 
 #file for getting most recent data for report type
