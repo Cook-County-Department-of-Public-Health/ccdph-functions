@@ -102,11 +102,16 @@ clean_towns_INEDDS <- function(towns){
 }
 
 #steps taken to clean formatted salesforce reports
-clean_salesforce_report = function(report){
-  report %>%
-    select(-2) %>%
+clean_salesforce_report = function(report, formatted = T){
+  out = report %>%
     rename_all(~str_replace_all( ., " |\\/|\\-|\\?|\\:|\\(|\\)", "" )) %>%
     mutate(across(contains("Date"), parse_date_time, orders = c("mdy HM p", "mdy"))) 
+  
+  if(remove2ndCol){
+    out %<>% select(-2)
+  }
+  
+  return(out)
 }
 
 #clean addresses so matching is easier
