@@ -144,12 +144,12 @@ clean_addresses = function(address){
 #read in a file matching a pattern
 
 #file for getting most recent data for report type
-file_name = function(pattern, path = downloads_path, extension = "xlsx"){
+file_name = function(pattern, path = downloads_path, extension = "xlsx", num = 1){
   list.files(path, pattern = paste0(pattern,".*", extension, "$"), full.names = T) %>%
     cbind(file.mtime(.)) %>%
     set_colnames(c("file", "time")) %>%
     as_tibble() %>%
     arrange(time) %>%
     pull(file) %>%
-    tail(1)
+    tail(num)
 }
