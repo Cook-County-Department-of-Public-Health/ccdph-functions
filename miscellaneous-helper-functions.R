@@ -107,7 +107,7 @@ clean_salesforce_report = function(report, formatted = T){
     rename_all(~str_replace_all( ., " |\\/|\\-|\\?|\\:|\\(|\\)", "" )) %>%
     mutate(across(contains("Date"), parse_date_time, orders = c("mdy HM p", "mdy"))) 
   
-  if(remove2ndCol){
+  if(formatted){
     out %<>% select(-2)
   }
   
