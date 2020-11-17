@@ -60,9 +60,9 @@ acceptAlertwithWait <- function(wait = 3) {
 }
 
 #Start firefox server session, assign remDr and rD to global environment
-start_server = function(){
+start_server = function(instance = 1){
   #Open selenium session
-  remDr <<- rsDriver(browser = "firefox")
+  remDr <<- rsDriver(browser = "firefox", port = as.integer(4566 + instance))
   
   #Extract the client for navigation
   rD <<- remDr[['client']]
