@@ -105,7 +105,8 @@ clean_towns_INEDDS <- function(towns){
 clean_salesforce_report = function(report, formatted = T){
   out = report %>%
     rename_all(~str_replace_all( ., " |\\/|\\-|\\?|\\:|\\(|\\)|\\'", "" )) %>%
-    mutate(across(contains("Date"), parse_date_time, orders = c("mdy HM p", "mdy"))) 
+    mutate(across(contains("Date"), parse_date_time, orders = c("mdy HM p", "mdy")),
+           across(contains("City"), clean_towns_INEDDS)) 
   
   if(formatted){
     out %<>% select(-2)
