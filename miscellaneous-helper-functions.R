@@ -154,3 +154,12 @@ file_name = function(pattern, path = downloads_path, extension = "xlsx", num = 1
     pull(file) %>%
     tail(num)
 }
+
+
+#create age decade variable
+age_decade = function(age){
+  factor(case_when(age < 20 ~ "< 20",
+                               age > 79 ~ "> 80",
+                               age < 80 & age > 19 ~ paste0(substr(age,1,1),"0s")),
+                     levels = c("< 20", "20s", "30s", "40s", "50s", "60s", "70s", "> 80"), ordered = TRUE)
+}
