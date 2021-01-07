@@ -123,6 +123,10 @@ clean_towns_INEDDS <- function(towns){
   return(towns)
 }
 
+#named above function with a spelling mistake, used for more than just I-NEDSS now, duplicate function but 
+#also keep original so scripts don't fail
+clean_cook_town_names = clean_towns_INEDDS
+
 #steps taken to clean formatted salesforce reports
 clean_salesforce_report = function(report, formatted = T){
   out = report %>%
