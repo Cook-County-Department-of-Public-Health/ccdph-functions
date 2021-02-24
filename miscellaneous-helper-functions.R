@@ -122,7 +122,7 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("Oaklawn", "Oak Lawn", towns)
   towns = gsub("So Chicago Heights", "South Chicago Heights", towns)
   towns = gsub("Crestwook", "Crestwood", towns)
-  towns = gsub("Palos?heights", "Palos Heights", towns)
+  towns = gsub("Palos\\?heights", "Palos Heights", towns)
   
   
   
