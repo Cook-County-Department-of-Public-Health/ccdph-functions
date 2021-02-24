@@ -165,7 +165,7 @@ clean_addresses = function(address){
   address = gsub("\\bNE\\b", "NORTHEAST", address)
   
   address = gsub("\\bHWY\\b", "HIGHWAY", address)
-  address = gsub("\\bRD ", "ROAD", address)
+  address = gsub("\\bRD\\b", "ROAD", address)
   address = gsub("\\bST\\b", "STREET", address)
   address = gsub("\\bAVE\\b", "AVENUE", address)
   address = gsub("\\bBLVD\\b", "BOULEVARD", address)
