@@ -117,7 +117,7 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("Wheeliing|Wheeliong", "Wheeling", towns)
   towns = gsub("Cntry", "Country", towns)
   towns = gsub("Elk Grove", "Elk Grove Village", towns)
-  towns = gsub("Villag$", "Village", towns)
+  #towns = gsub("Villag$", "Village", towns)
   towns = gsub("Lagrange|LaGrange", "La Grange", towns)
   towns = gsub("Oaklawn", "Oak Lawn", towns)
   towns = gsub("So Chicago Heights", "South Chicago Heights", towns)
