@@ -159,6 +159,7 @@ clean_addresses = function(address){
   address = gsub("\\bN\\b", "NORTH", address)
   address = gsub("\\bS\\b", "SOUTH", address)
   address = gsub("\\bE\\b", "EAST", address)
+  address = gsub("\\bW\\b", "WEST", address)
   address = gsub("\\bSW\\b", "SOUTHWEST", address)
   address = gsub("\\bNW\\b", "NORTHWEST", address)
   address = gsub("\\bSE\\b", "SOUTEAST", address)
