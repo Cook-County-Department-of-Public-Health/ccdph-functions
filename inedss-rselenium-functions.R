@@ -59,7 +59,9 @@ login_inedss = function(app = "I-NEDSS", username_key = "idph_username", passwor
   rD$switchToWindow(windows[[2]])
   
   #Clicking login button
-  rD$findElement(using = "css", value = "input[name = \"login\"]")$clickElement()
+  if(app =="I-NEDSS"){
+    rD$findElement(using = "css", value = "input[name = \"login\"]")$clickElement()
+  }
   
   #Pausing execution to give time to load page
   Sys.sleep(5)
