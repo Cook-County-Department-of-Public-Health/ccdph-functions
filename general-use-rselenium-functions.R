@@ -61,8 +61,13 @@ acceptAlertwithWait <- function(wait = 3) {
 
 #Start firefox server session, assign remDr and rD to global environment
 start_server = function(instance = 1){
+  
+  
+  #Setting Firefox to avoid download type
+  firefoxProfile <- makeFirefoxProfile(list(browser.helperApps.neverAsk.saveToDisk = "application/comma-separated-values ,text/csv"))
+  
   #Open selenium session
-  remDr <<- rsDriver(browser = "firefox", port = as.integer(4566 + instance))
+  remDr <<- rsDriver(browser = "firefox", extraCapabilities = firefoxProfile, port = as.integer(4566 + instance))
   
   #Extract the client for navigation
   rD <<- remDr[['client']]
