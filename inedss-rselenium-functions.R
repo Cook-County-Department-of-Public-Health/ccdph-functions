@@ -6,7 +6,7 @@ library(purrr)
 
 #=================LOGGING INTO THE I-NEDSS PORTAL======================#
 
-login_inedss = function(){
+login_inedss = function(app = "I-NEDSS", username_key = "idph_username", password_key = "idph_portal"){
   
   #Navigating to log-in page
   rD$navigate("https://dph.partner.illinois.gov/my.policy")
@@ -28,7 +28,7 @@ login_inedss = function(){
   Sys.sleep(5)
   
   #Enter credentials and log in
-  rD$findElement(using = "css", value = "#input_1")$sendKeysToElement(list(key_get("idph_username"), key = "tab", key_get("idph_portal")))
+  rD$findElement(using = "css", value = "#input_1")$sendKeysToElement(list(key_get(username_key), key = "tab", key_get(password_key)))
   rD$findElement("css", "input[value = \"Logon\"]")$clickElement()
   
   #Pausing execution to give time to log in and load page
@@ -45,7 +45,7 @@ login_inedss = function(){
   
   #Store location of INEDSS link  
   inedssLink <- map_chr(appsTableLinks, function(x) x$getElementText()[[1]]) %>%
-    grepl("I-NEDSS", .) %>%
+    grepl(app, .) %>%
     which(. == TRUE)
   
   #Click INEDSS link
@@ -63,6 +63,11 @@ login_inedss = function(){
   
   #Pausing execution to give time to load page
   Sys.sleep(5)
+}
+
+#ICARE LOGIN
+login_icare = function(username_key = "idph_username", password_key = "idph_portal"){
+  login_inedss(app = "I-CARE", username_key = username_key, password_key = password_key)
 }
 
 #==============SEARCHING FOR A NAME======================#
