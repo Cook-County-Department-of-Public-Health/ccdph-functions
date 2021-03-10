@@ -175,7 +175,7 @@ get_text_class = function(element, selectorType = "css"){
 #Click a link with href name
 click_link = function(href_link){
   val = paste0('//a[@href = "', href_link, '"]')
-  link = rD$findElement(value = '//a[@href = "/icare2/Report/Vaccine/Transactions"]')
+  link = rD$findElement(value = href_link)
   link$clickElement()
   
 }
