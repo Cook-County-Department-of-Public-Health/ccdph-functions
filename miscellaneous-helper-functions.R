@@ -132,7 +132,7 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("N Riverside", "North Riverside", towns)
   towns = gsub("Western Sprgs", "Western Springs", towns)
   towns = gsub("Parkridge", "Park Ridge", towns)
-  towns = gsub("Hoffman Est|Hoffam Estate", "Hoffman Estates", towns)
+  towns = gsub("^Hoffman Est$|^Hoffam Estate$", "Hoffman Estates", towns)
   
   
   
