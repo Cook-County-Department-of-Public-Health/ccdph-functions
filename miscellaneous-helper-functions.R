@@ -25,6 +25,7 @@ clean_towns_INEDDS <- function(towns){
   
   #correct common shorthands
   towns = gsub("Hts", "Heights", towns)
+  towns = gsub("Hgts", "Heights", towns)
   towns = gsub("Vlg", "Village", towns)
   towns = gsub("Pk", "Park", towns)
   towns = gsub("Mt", "Mount", towns)
@@ -102,6 +103,7 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("Berwnyn|Brwyn|Berwyn I", "Berwyn", towns)
   towns = gsub("Blue Islane|Blue Island D", "Blue Island", towns)
   towns = gsub("Chicagi", "Chicago", towns)
+  towns = gsub("Chgo", "Chicago", towns)
   towns = gsub("Cicerocicero", "Cicero", towns)
   towns = gsub("\\`", "", towns)
   towns = gsub("Despplaines", "Des Plaines", towns)
@@ -118,6 +120,7 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("Orlaand|Oralnd", "Orland", towns)
   towns = gsub("Orland Patk", "Orland Park", towns)
   towns = gsub("Sachaumburg", "Schaumburg", towns)
+  towns = gsub("Schaumberg", "Schaumburg", towns)
   towns = gsub("Schiiler", "Schiller", towns)
   towns = gsub("Tinl Park|Tinle Park|Tinley Parl", "Tinley Park", towns)
   towns = gsub("Wheeliing|Wheeliong", "Wheeling", towns)
@@ -133,6 +136,9 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("Western Sprgs", "Western Springs", towns)
   towns = gsub("Parkridge", "Park Ridge", towns)
   towns = gsub("^Hoffman Est$|^Hoffam Estate$", "Hoffman Estates", towns)
+  towns = gsub("North Lake", "Northlake", towns)
+  towns = gsub("Hazelcrest", "Hazel Crest", towns)
+  towns = gsub("Rolling Mdws", "Rolling Meadows", towns)
   
   
   
