@@ -35,7 +35,7 @@ NSSP_GET = function(url){
 #function to call NSSP get function and format output
 nssp_get_table = function(url){
   #download NSSP API url as a table (transformed from JSON) 
-  if(grepl("dataDetails", url, ignore.case = T)){
+  if(grepl("dataDetails|tableBuilder", url, ignore.case = T)){
     if(grepl("csv\\?",url, ignore.case = T)){
       table = content(NSSP_GET(url), as = "text", encoding = "UTF-8") %>% read_csv() 
     }
