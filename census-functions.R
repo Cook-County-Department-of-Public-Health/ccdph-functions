@@ -53,6 +53,10 @@ ccdph_census_population = function(variable, year = 2010){
 #   ) %>%
 #   relocate(population, .after = last_col())
 
+#data tables
+acs_2019_variables = load_variables(2019, "acs5", cache = TRUE)
+census_2010_variables = load_variables(2010, "sf1", cache = TRUE)
+
 
 #Calculate an ACS estimate for CCDPH jurisdiction
 ccdph_acs_population = function(variable, year = 2019, survey = "acs5"){
