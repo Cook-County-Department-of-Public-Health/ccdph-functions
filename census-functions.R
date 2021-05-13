@@ -3,6 +3,7 @@ library(tidyverse)
 library(magrittr)
 library(janitor)
 
+#Calculate a census estimate for CCDPH jurisdiction
 ccdph_census_population = function(variable){
   all_cook  = get_decennial(geography = "county", 
                                              state = "IL", county = "Cook",
@@ -53,6 +54,7 @@ ccdph_census_population = function(variable){
 #   relocate(population, .after = last_col())
 
 
+#Calculate an ACS estimate for CCDPH jurisdiction
 ccdph_acs_population = function(variable, year = 2019, survey = "acs5"){
   all_cook  = get_acs(geography = "county", survey = survey,
                       state = "IL", county = "Cook",
