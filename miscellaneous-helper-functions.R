@@ -217,3 +217,21 @@ age_decade = function(age){
                                age < 80 & age > 19 ~ paste0(substr(age,1,1),"0s")),
                      levels = c("< 20", "20s", "30s", "40s", "50s", "60s", "70s", "> 80"), ordered = TRUE)
 }
+
+
+#use variable in interval notation format (left closed, ordered factor) to create labels suitable for display
+make_pretty_intervals <- function(interval_var){
+  
+  intervals_calc <- levels(interval_var)
+  interval_starts <- map_dbl(intervals_calc, ~round(as.numeric(gsub("^[\\[\\(](.+),.*", "\\1", .x)), 1))
+  
+  pretty_intervals <- sapply(1:(length(interval_starts)-1), function(i){
+    return(paste(interval_starts[i], "-", interval_starts[i+1] - .1))
+  }) %>%
+    c(paste("More than", interval_starts[length(interval_starts)])) 
+  
+  pretty_intervals <- factor(pretty_intervals,ordered = T, levels = pretty_intervals)
+  
+  return(pretty_intervals[interval_var])
+  
+}
