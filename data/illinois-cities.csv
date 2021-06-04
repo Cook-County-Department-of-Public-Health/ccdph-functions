@@ -1,0 +1,1365 @@
+city,in_cook
+Little York,FALSE
+Liverpool,FALSE
+Livingston,FALSE
+Loami,FALSE
+Lockport,FALSE
+London Mills,FALSE
+Loda,FALSE
+Lomax,FALSE
+Lombard,FALSE
+Long Creek,FALSE
+Long Grove,FALSE
+Long Lake,FALSE
+Long Point,FALSE
+Longview,FALSE
+Loraine,FALSE
+Loves Park,FALSE
+Lostant,FALSE
+Lost Nation,FALSE
+Louisville,FALSE
+Lovington,FALSE
+Ludlow,FALSE
+Lyndon,FALSE
+Lynnville,FALSE
+Lynwood,TRUE
+Lyons,TRUE
+Macedonia,FALSE
+McClure,FALSE
+McCook,TRUE
+McCullom Lake,FALSE
+McHenry,FALSE
+McLeansboro,FALSE
+Machesney Park,FALSE
+Mackinaw,FALSE
+McLean,FALSE
+McNabb,FALSE
+Maeystown,FALSE
+Macomb,FALSE
+Macon,FALSE
+Madison,FALSE
+Magnolia,FALSE
+Mahomet,FALSE
+Makanda,FALSE
+Malden,FALSE
+Malta,FALSE
+Manchester,FALSE
+Mansfield,FALSE
+Manhattan,FALSE
+Manito,FALSE
+Manlius,FALSE
+Manteno,FALSE
+Maple Park,FALSE
+Mapleton,FALSE
+Maquon,FALSE
+Marengo,FALSE
+Marietta,FALSE
+Marine,FALSE
+Marion,FALSE
+Marissa,FALSE
+Marquette Heights,FALSE
+Mark,FALSE
+Maroa,FALSE
+Marseilles,FALSE
+Martinsville,FALSE
+Matherville,FALSE
+Markham,TRUE
+Marshall,FALSE
+Maryville,FALSE
+Mascoutah,FALSE
+Mason,FALSE
+Matteson,TRUE
+Mattoon,FALSE
+Maywood,TRUE
+Medora,FALSE
+Martinton,FALSE
+Maunie,FALSE
+Mason City,FALSE
+Mazon,FALSE
+Mechanicsburg,FALSE
+Media,FALSE
+Melrose Park,TRUE
+Melvin,FALSE
+Mendon,FALSE
+Mendota,FALSE
+Metropolis,FALSE
+Menominee,FALSE
+Meredosia,FALSE
+Merrionette Park,TRUE
+Metamora,FALSE
+Mettawa,FALSE
+Middletown,FALSE
+Midlothian,TRUE
+Milan,FALSE
+Coal City,FALSE
+Coalton,FALSE
+Coal Valley,FALSE
+Coatsburg,FALSE
+Cobden,FALSE
+Colfax,FALSE
+Coffeen,FALSE
+Colchester,FALSE
+Coleta,FALSE
+Collinsville,FALSE
+Colona,FALSE
+Colp,FALSE
+Columbia,FALSE
+Columbus,FALSE
+Como,FALSE
+Cooksville,FALSE
+Compton,FALSE
+Concord,FALSE
+Congerville,FALSE
+Cordova,FALSE
+Cornell,FALSE
+Cornland,FALSE
+Cortland,FALSE
+Coulterville,FALSE
+Country Club Hills,TRUE
+Crab Orchard,FALSE
+Countryside,TRUE
+Cowden,FALSE
+Coyne Center,FALSE
+Crainville,FALSE
+Creal Springs,FALSE
+Crescent City,FALSE
+Crest Hill,FALSE
+Creston,FALSE
+Godfrey,FALSE
+Godley,FALSE
+Golconda,FALSE
+Golden,FALSE
+Good Hope,FALSE
+Golden Gate,FALSE
+Golf,TRUE
+Goodfield,FALSE
+Goofy Ridge,FALSE
+Goreville,FALSE
+Gorham,FALSE
+Grafton,FALSE
+Grand Detour,FALSE
+Grand Ridge,FALSE
+Grand Tower,FALSE
+Grantfork,FALSE
+Grandview,FALSE
+Grandwood Park,FALSE
+Granite City,FALSE
+Grant Park,FALSE
+Greenfield,FALSE
+Granville,FALSE
+Grayslake,FALSE
+Grayville,FALSE
+Green Oaks,FALSE
+Greenview,FALSE
+Greenup,FALSE
+Green Valley,FALSE
+Greenville,FALSE
+Greenwood,FALSE
+Gridley,FALSE
+Griggsville,FALSE
+Gulf Port,FALSE
+Gurnee,FALSE
+Hamilton,FALSE
+Hainesville,FALSE
+Hamburg,FALSE
+Hamel,FALSE
+Hammond,FALSE
+Hampshire,FALSE
+Hampton,FALSE
+Hanaford,FALSE
+Hanna City,FALSE
+Hanover,FALSE
+Harrisburg,FALSE
+Hanover Park,TRUE
+Hardin,FALSE
+Harmon,FALSE
+Harrison,FALSE
+Harristown,FALSE
+Hartford,FALSE
+Hartsburg,FALSE
+Milford,FALSE
+Mill Shoals,FALSE
+Metcalf,FALSE
+Millbrook,FALSE
+Mill Creek,FALSE
+Milledgeville,FALSE
+Millington,FALSE
+Millstadt,FALSE
+Milton,FALSE
+Mineral,FALSE
+Minier,FALSE
+Minonk,FALSE
+Mokena,FALSE
+Minooka,FALSE
+Mitchell,FALSE
+Modesto,FALSE
+Moline,FALSE
+Momence,FALSE
+Monee,FALSE
+Monticello,FALSE
+Monmouth,FALSE
+Monroe Center,FALSE
+Montgomery,FALSE
+Montrose,FALSE
+Altona,FALSE
+Adair,FALSE
+Amboy,FALSE
+Alvan,FALSE
+Andover,FALSE
+Anna,FALSE
+Albers,FALSE
+Albion,FALSE
+Alsey,FALSE
+Alto Pass,FALSE
+Anchor,FALSE
+Algonquin,FALSE
+Allendale,FALSE
+Allenville,FALSE
+Andalusia,FALSE
+Annapolis,FALSE
+Annawan,FALSE
+Antioch,FALSE
+Argenta,FALSE
+Apple Canyon Lake,FALSE
+Apple River,FALSE
+Arcola,FALSE
+Arrowsmith,FALSE
+Arenzville,FALSE
+Arlington,FALSE
+Arlington Heights,TRUE
+Armington,FALSE
+Aroma Park,FALSE
+Ashley,FALSE
+Arthur,FALSE
+Ashkum,FALSE
+Ashland,FALSE
+Ashmore,FALSE
+Ashton,FALSE
+Assumption,FALSE
+Astoria,FALSE
+Athens,FALSE
+Atkinson,FALSE
+Augusta,FALSE
+Atlanta,FALSE
+Atwood,FALSE
+Auburn,FALSE
+Aurora,FALSE
+Ava,FALSE
+Aviston,FALSE
+Avon,FALSE
+Baldwin,FALSE
+Banner,FALSE
+Barrington Hills,TRUE
+Bannockburn,FALSE
+Crestwood,TRUE
+Crystal Lake,FALSE
+Crete,FALSE
+Creve Coeur,FALSE
+Crossville,FALSE
+Crystal Lawns,FALSE
+Cuba,FALSE
+Cullom,FALSE
+Curran,FALSE
+Cutler,FALSE
+Cypress,FALSE
+Dalton City,FALSE
+Dahlgren,FALSE
+Dakota,FALSE
+Dallas City,FALSE
+Dalzell,FALSE
+Damiansville,FALSE
+Dana,FALSE
+Danforth,FALSE
+Danvers,FALSE
+Danville,FALSE
+Spillertown,FALSE
+Spring Bay,FALSE
+Springerton,FALSE
+Spring Valley,FALSE
+Darien,FALSE
+Darmstadt,FALSE
+Davis,FALSE
+Springfield,FALSE
+Spring Grove,FALSE
+Standard,FALSE
+Standard City,FALSE
+Stanford,FALSE
+Staunton,FALSE
+Steeleville,FALSE
+Steger,TRUE
+Sterling,FALSE
+Stillman Valley,FALSE
+Steward,FALSE
+Stewardson,FALSE
+Stickney,TRUE
+Stockton,FALSE
+Stonefort,FALSE
+Stone Park,TRUE
+Stonington,FALSE
+Stoy,FALSE
+Strasburg,FALSE
+Stronghurst,FALSE
+Strawn,FALSE
+Streamwood,TRUE
+Streator,FALSE
+Sublette,FALSE
+Sugar Grove,FALSE
+Sullivan,FALSE
+Summerfield,FALSE
+Summit,TRUE
+Sumner,FALSE
+Sycamore,FALSE
+Sun River Terrace,FALSE
+Swansea,FALSE
+Symerton,FALSE
+Table Grove,FALSE
+Tallula,FALSE
+Tamaroa,FALSE
+Tamms,FALSE
+Harvard,FALSE
+Harvel,FALSE
+Harvey,TRUE
+Harwood Heights,TRUE
+Havana,FALSE
+Bardolph,FALSE
+Barrington,TRUE
+Barry,FALSE
+Bartelso,FALSE
+Bartlett,TRUE
+Bartonville,FALSE
+Basco,FALSE
+Batavia,FALSE
+Oregon,FALSE
+Orient,FALSE
+Orion,FALSE
+Ottawa,FALSE
+Orland Hills,TRUE
+Orland Park,TRUE
+Oswego,FALSE
+Otterville,FALSE
+Owaneco,FALSE
+Paderborn,FALSE
+Palatine,TRUE
+Palestine,FALSE
+Palmer,FALSE
+Palmyra,FALSE
+Pana,FALSE
+Palos Heights,TRUE
+Palos Hills,TRUE
+Palos Park,TRUE
+Panama,FALSE
+Panola,FALSE
+Papineau,FALSE
+Paris,FALSE
+Park City,FALSE
+Patoka,FALSE
+Parkersburg,FALSE
+Park Forest,TRUE
+Park Ridge,TRUE
+Pawnee,FALSE
+Paw Paw,FALSE
+Paxton,FALSE
+Payson,FALSE
+Pearl,FALSE
+Pearl City,FALSE
+Peoria,FALSE
+Pecatonica,FALSE
+Pekin,FALSE
+Penfield,FALSE
+Peoria Heights,FALSE
+Peotone,FALSE
+Percy,FALSE
+Perry,FALSE
+Peru,FALSE
+Pesotum,FALSE
+Petersburg,FALSE
+Pierron,FALSE
+Phillipstown,FALSE
+Philo,FALSE
+Phoenix,TRUE
+Pinckneyville,FALSE
+Pittsburg,FALSE
+Pingree Grove,FALSE
+Piper City,FALSE
+Pistakee Highlands,FALSE
+Plano,FALSE
+Pittsfield,FALSE
+Plainfield,FALSE
+Plainville,FALSE
+Plattville,FALSE
+Tampico,FALSE
+Teutopolis,FALSE
+Taylor Springs,FALSE
+Taylorville,FALSE
+Tennessee,FALSE
+Thawville,FALSE
+Thayer,FALSE
+Thebes,FALSE
+The Galena Territory,FALSE
+Third Lake,FALSE
+Thomasboro,FALSE
+Thompsonville,FALSE
+Tilden,FALSE
+Thomson,FALSE
+Timberlane,FALSE
+Thornton,TRUE
+Ladd,FALSE
+La Harpe,FALSE
+La Fayette,FALSE
+La Grange,TRUE
+La Grange Park,TRUE
+Lake Barrington,FALSE
+Lake Forest,FALSE
+Lake Bluff,FALSE
+Lake Camelot,FALSE
+Lake Catherine,FALSE
+Lake Holiday,FALSE
+Lake of the Woods,FALSE
+Lake in the Hills,FALSE
+Lake Ka-Ho,FALSE
+Lakemoor,FALSE
+Lake Petersburg,FALSE
+Lake Summerset,FALSE
+Lake Villa,FALSE
+Lakewood,FALSE
+Lakewood Shores,FALSE
+Lake Zurich,FALSE
+La Moille,FALSE
+LaPlace,FALSE
+Lanark,FALSE
+Langleyville,FALSE
+Lansing,TRUE
+La Prairie,FALSE
+La Rose,FALSE
+LaSalle,FALSE
+Latham,FALSE
+Lawrenceville,FALSE
+Leaf River,FALSE
+Leland Grove,FALSE
+Lebanon,FALSE
+Lee,FALSE
+Leland,FALSE
+Lemont,TRUE
+Lena,FALSE
+Lenzburg,FALSE
+Leonore,FALSE
+Lerna,FALSE
+Le Roy,FALSE
+Libertyville,FALSE
+Lewistown,FALSE
+Lexington,FALSE
+Liberty,FALSE
+Lily Lake,FALSE
+Lima,FALSE
+Limestone,FALSE
+Lincoln,FALSE
+Lincolnshire,FALSE
+Lincolnwood,TRUE
+Litchfield,FALSE
+Lindenhurst,FALSE
+Lisbon,FALSE
+Lisle,FALSE
+Littleton,FALSE
+Carbon Hill,FALSE
+Carlinville,FALSE
+Carol Stream,FALSE
+Carlock,FALSE
+Carlyle,FALSE
+Florence,FALSE
+Forest City,FALSE
+Flossmoor,TRUE
+Foosland,FALSE
+Ford Heights,TRUE
+Forest Lake,FALSE
+Forest Park,TRUE
+Forest View,TRUE
+Forrest,FALSE
+Forreston,FALSE
+Forsyth,FALSE
+Frankfort,FALSE
+Fox Lake,FALSE
+Fox Lake Hills,FALSE
+Fox River Grove,FALSE
+Frankfort Square,FALSE
+Franklin,FALSE
+Franklin Grove,FALSE
+Franklin Park,TRUE
+Freeburg,FALSE
+Freeman Spur,FALSE
+Gages Lake,FALSE
+Freeport,FALSE
+Fulton,FALSE
+Fults,FALSE
+Galatia,FALSE
+Galena,FALSE
+Galesburg,FALSE
+Galva,FALSE
+Garden Prairie,FALSE
+Gardner,FALSE
+Geneva,FALSE
+Garrett,FALSE
+Gays,FALSE
+Geneseo,FALSE
+Genoa,FALSE
+Georgetown,FALSE
+Germantown,FALSE
+Germantown Hills,FALSE
+German Valley,FALSE
+Gillespie,FALSE
+Gibson City,FALSE
+Gifford,FALSE
+Gilberts,FALSE
+Gilman,FALSE
+Gilson,FALSE
+Carmi,FALSE
+Carpentersville,FALSE
+Carrier Mills,FALSE
+Carrollton,FALSE
+Carterville,FALSE
+Carthage,FALSE
+Cary,FALSE
+Cave-In-Rock,FALSE
+Casey,FALSE
+Caseyville,FALSE
+Catlin,FALSE
+Cedar Point,FALSE
+Cedarville,FALSE
+Central City,FALSE
+Centralia,FALSE
+Centreville,FALSE
+Cerro Gordo,FALSE
+Channahon,FALSE
+Chadwick,FALSE
+Champaign,FALSE
+Chandlerville,FALSE
+Chapin,FALSE
+Charleston,FALSE
+Chatham,FALSE
+Chatsworth,FALSE
+Cherry,FALSE
+Chebanse,FALSE
+Chemung,FALSE
+Chenoa,FALSE
+Cherry Valley,FALSE
+Chester,FALSE
+Chesterfield,FALSE
+Chestnut,FALSE
+Chicago,TRUE
+Chicago Heights,TRUE
+Chicago Ridge,TRUE
+Claremont,FALSE
+Chillicothe,FALSE
+Chrisman,FALSE
+Christopher,FALSE
+Channel Lake,FALSE
+Cicero,TRUE
+Cisco,FALSE
+Cisne,FALSE
+Cissna Park,FALSE
+Clarendon Hills,FALSE
+Clay City,FALSE
+Clifton,FALSE
+Clayton,FALSE
+Clear Lake,FALSE
+Cleveland,FALSE
+Clinton,FALSE
+Savanna,FALSE
+Scales Mound,FALSE
+Savoy,FALSE
+Sawyerville,FALSE
+Saybrook,FALSE
+Schaumburg,TRUE
+Schiller Park,TRUE
+Schram City,FALSE
+Sciota,FALSE
+Scott AFB,FALSE
+Scottville,FALSE
+Seneca,FALSE
+Seaton,FALSE
+Girard,FALSE
+Gladstone,FALSE
+Glasford,FALSE
+Glasgow,FALSE
+Glen Ellyn,FALSE
+Glen Carbon,FALSE
+Glencoe,TRUE
+Glendale Heights,FALSE
+Glenview,TRUE
+Glenwood,TRUE
+Windsor,FALSE
+Wilsonville,FALSE
+Winchester,FALSE
+Winfield,FALSE
+Winnebago,FALSE
+Winnetka,TRUE
+Winslow,FALSE
+Winthrop Harbor,FALSE
+Witt,FALSE
+Woodland,FALSE
+Wonder Lake,FALSE
+Wood Dale,FALSE
+Woodhull,FALSE
+Woodlawn,FALSE
+Woodridge,FALSE
+Wood River,FALSE
+Woodson,FALSE
+Woodstock,FALSE
+Worden,FALSE
+Xenia,FALSE
+Worth,TRUE
+Wyanet,FALSE
+Wyoming,FALSE
+Yale,FALSE
+Yates City,FALSE
+Yorkville,FALSE
+Zeigler,FALSE
+Zion,FALSE
+Abingdon,FALSE
+Addieville,FALSE
+Aledo,FALSE
+Addison,FALSE
+Adeline,FALSE
+Albany,FALSE
+Alexis,FALSE
+Alhambra,FALSE
+Alpha,FALSE
+Allerton,FALSE
+Alma,FALSE
+Alorton,FALSE
+Alsip,TRUE
+Altamont,FALSE
+Alton,FALSE
+Niles,TRUE
+Nora,FALSE
+Nilwood,FALSE
+Noble,FALSE
+Nokomis,FALSE
+Normal,FALSE
+Norridge,TRUE
+Norris,FALSE
+Norris City,FALSE
+North Aurora,FALSE
+North Barrington,FALSE
+Northfield,TRUE
+Northbrook,TRUE
+North Chicago,FALSE
+North City,FALSE
+North Henderson,FALSE
+Northlake,TRUE
+North Pekin,FALSE
+North Riverside,TRUE
+North Utica,FALSE
+Oakbrook Terrace,FALSE
+Norwood,FALSE
+Oakford,FALSE
+Oak Brook,FALSE
+Oakdale,FALSE
+Oak Forest,TRUE
+Oak Grove,FALSE
+Oakland,FALSE
+Seatonville,FALSE
+Secor,FALSE
+Sesser,FALSE
+Seymour,FALSE
+Shabbona,FALSE
+Shannon,FALSE
+Shawneetown,FALSE
+Sheffield,FALSE
+Sherman,FALSE
+Shelbyville,FALSE
+Sheldon,FALSE
+Sheridan,FALSE
+Sherrard,FALSE
+Shiloh,FALSE
+Shipman,FALSE
+Shorewood,FALSE
+Shumway,FALSE
+Sibley,FALSE
+Silvis,FALSE
+Sidell,FALSE
+Sidney,FALSE
+Sigel,FALSE
+Sleepy Hollow,FALSE
+Simpson,FALSE
+Sims,FALSE
+Skokie,TRUE
+Smithboro,FALSE
+Sorento,FALSE
+Smithfield,FALSE
+Smithton,FALSE
+Somonauk,FALSE
+South Barrington,TRUE
+South Beloit,FALSE
+South Chicago Heights,TRUE
+South Elgin,FALSE
+Southern View,FALSE
+South Holland,TRUE
+South Wilmington,FALSE
+South Jacksonville,FALSE
+South Pekin,FALSE
+South Roxana,FALSE
+Sparland,FALSE
+Sparta,FALSE
+Spaulding,FALSE
+Inverness,TRUE
+Iola,FALSE
+Ipava,FALSE
+Iroquois,FALSE
+Irving,FALSE
+Irvington,FALSE
+Irwin,FALSE
+Island Lake,FALSE
+Oak Lawn,TRUE
+Oak Park,TRUE
+Oblong,FALSE
+Oak Run,FALSE
+Oakwood,FALSE
+Oakwood Hills,FALSE
+Oconee,FALSE
+Odell,FALSE
+Odin,FALSE
+O'Fallon,FALSE
+Ogden,FALSE
+Oglesby,FALSE
+Ohio,FALSE
+Old Ripley,FALSE
+Ohlman,FALSE
+Okawville,FALSE
+Old Mill Creek,FALSE
+Old Shawneetown,FALSE
+Olive Branch,FALSE
+Olivet,FALSE
+Olmsted,FALSE
+Olney,FALSE
+Olympia Fields,TRUE
+Opdyke,FALSE
+Omaha,FALSE
+Onarga,FALSE
+Oneida,FALSE
+Oquawka,FALSE
+Orangeville,FALSE
+Oreana,FALSE
+Itasca,FALSE
+Jeffersonville,FALSE
+Iuka,FALSE
+Ivesdale,FALSE
+Jacksonville,FALSE
+Jeisyville,FALSE
+Jerome,FALSE
+Jerseyville,FALSE
+Jewett,FALSE
+Johnsburg,FALSE
+Johnsonville,FALSE
+Joppa,FALSE
+Johnston City,FALSE
+Joliet,FALSE
+Jonesboro,FALSE
+Joy,FALSE
+Junction,FALSE
+Junction City,FALSE
+Justice,TRUE
+Kampsville,FALSE
+Kane,FALSE
+Kansas,FALSE
+Kaneville,FALSE
+Kangley,FALSE
+Kankakee,FALSE
+Kappa,FALSE
+Karnak,FALSE
+Kaskaskia,FALSE
+Keenes,FALSE
+Keensburg,FALSE
+Keithsburg,FALSE
+Kenney,FALSE
+Kell,FALSE
+Kempton,FALSE
+Kenilworth,TRUE
+Kewanee,FALSE
+Keyesport,FALSE
+Kilbourne,FALSE
+Kildeer,FALSE
+Kincaid,FALSE
+Kinderhook,FALSE
+Kinsman,FALSE
+Kingston,FALSE
+Kingston Mines,FALSE
+Kinmundy,FALSE
+Kirkland,FALSE
+Kirkwood,FALSE
+Knollwood,FALSE
+Knoxville,FALSE
+Lacon,FALSE
+Breese,FALSE
+Brimfield,FALSE
+Bridgeport,FALSE
+Bridgeview,TRUE
+Brighton,FALSE
+Broadlands,FALSE
+Broadview,TRUE
+Broadwell,FALSE
+Brocton,FALSE
+Brookfield,TRUE
+Brooklyn,FALSE
+Browns,FALSE
+Brookport,FALSE
+Eldorado,FALSE
+Effingham,FALSE
+Elburn,FALSE
+El Dara,FALSE
+Eldred,FALSE
+Elgin,TRUE
+Elizabeth,FALSE
+Elizabethtown,FALSE
+Elk Grove Village,TRUE
+Elkhart,FALSE
+Ellisville,FALSE
+Elkville,FALSE
+Elliott,FALSE
+Ellis Grove,FALSE
+Ellsworth,FALSE
+Elmhurst,FALSE
+Elmwood,FALSE
+Elmwood Park,TRUE
+El Paso,FALSE
+Elsah,FALSE
+Emden,FALSE
+Elvaston,FALSE
+Elwood,FALSE
+Emington,FALSE
+Energy,FALSE
+Enfield,FALSE
+Equality,FALSE
+Erie,FALSE
+Essex,FALSE
+Evergreen Park,TRUE
+Eureka,FALSE
+Evanston,TRUE
+Evansville,FALSE
+Ewing,FALSE
+Exeter,FALSE
+Fairbury,FALSE
+Fairfield,FALSE
+Fairmont,FALSE
+Fairmont City,FALSE
+Farina,FALSE
+Fairmount,FALSE
+Broughton,FALSE
+Browning,FALSE
+Brownstown,FALSE
+Buckley,FALSE
+Brussels,FALSE
+Bryant,FALSE
+Buckingham,FALSE
+Buckner,FALSE
+Bull Valley,FALSE
+Buda,FALSE
+Buffalo,FALSE
+Buffalo Grove,TRUE
+Bulpitt,FALSE
+Buncombe,FALSE
+Bunker Hill,FALSE
+Burbank,TRUE
+Bureau Junction,FALSE
+Burlington,FALSE
+Bush,FALSE
+Burnham,TRUE
+Burnt Prairie,FALSE
+Burr Ridge,TRUE
+Bushnell,FALSE
+Butler,FALSE
+Byron,FALSE
+Cabery,FALSE
+Cahokia,FALSE
+Calumet City,TRUE
+Cairo,FALSE
+Caledonia,FALSE
+Calhoun,FALSE
+Calumet Park,TRUE
+Camargo,FALSE
+Cambria,FALSE
+Cambridge,FALSE
+Camden,FALSE
+Campbell Hill,FALSE
+Canton,FALSE
+Camp Point,FALSE
+Campton Hills,FALSE
+Campus,FALSE
+Cantrall,FALSE
+Capron,FALSE
+Carbon Cliff,FALSE
+Carbondale,FALSE
+Rochelle,FALSE
+Rochester,FALSE
+Rockbridge,FALSE
+Rock City,FALSE
+Rockdale,FALSE
+Rock Falls,FALSE
+Rockford,FALSE
+Rock Island,FALSE
+Rolling Meadows,TRUE
+Rock Island Arsenal,FALSE
+Rockton,FALSE
+Rockwood,FALSE
+Roscoe,FALSE
+Rome,FALSE
+Romeoville,FALSE
+Roodhouse,FALSE
+Rose Hill,FALSE
+Roselle,TRUE
+Rosiclare,FALSE
+Rosemont,TRUE
+Fairview,FALSE
+Fairview Heights,FALSE
+Farmer City,FALSE
+Farmersville,FALSE
+Farmington,FALSE
+Fayetteville,FALSE
+Ferris,FALSE
+Fidelity,FALSE
+Findlay,FALSE
+Fisher,FALSE
+Fieldon,FALSE
+Fillmore,FALSE
+Fithian,FALSE
+Flanagan,FALSE
+Flat Rock,FALSE
+Flora,FALSE
+Floraville,FALSE
+Wapella,FALSE
+Warren,FALSE
+Warrensburg,FALSE
+Warrenville,FALSE
+Warsaw,FALSE
+Washburn,FALSE
+Washington,FALSE
+Waterman,FALSE
+Washington Park,FALSE
+Wataga,FALSE
+Waterloo,FALSE
+Waukegan,FALSE
+Watseka,FALSE
+Watson,FALSE
+Wauconda,FALSE
+Waverly,FALSE
+Wayne,FALSE
+Weldon,FALSE
+Wayne City,FALSE
+Waynesville,FALSE
+Wellington,FALSE
+Wenona,FALSE
+Wenonah,FALSE
+West Brooklyn,FALSE
+Westchester,TRUE
+West Chicago,FALSE
+Westervelt,FALSE
+West City,FALSE
+West Dundee,FALSE
+Western Springs,TRUE
+Westfield,FALSE
+West Frankfort,FALSE
+Westmont,FALSE
+West Peoria,FALSE
+West Point,FALSE
+West Salem,FALSE
+West Union,FALSE
+Wheeler,FALSE
+Westville,FALSE
+West York,FALSE
+Wheaton,FALSE
+Wheeling,TRUE
+Whiteash,FALSE
+White City,FALSE
+White Hall,FALSE
+White Heath,FALSE
+Williamsfield,FALSE
+Williamson,FALSE
+Roseville,FALSE
+Rosewood Heights,FALSE
+Rossville,FALSE
+Round Lake,FALSE
+Round Lake Beach,FALSE
+Round Lake Heights,FALSE
+Round Lake Park,FALSE
+Roxana,FALSE
+Ruma,FALSE
+Royal,FALSE
+Royal Lakes,FALSE
+Royalton,FALSE
+Rushville,FALSE
+Russellville,FALSE
+Rutland,FALSE
+Sadorus,FALSE
+Sailor Springs,FALSE
+St. Anne,FALSE
+St. Elmo,FALSE
+St. Augustine,FALSE
+St. Charles,FALSE
+St. David,FALSE
+Ste. Marie,FALSE
+St. Francisville,FALSE
+St. Jacob,FALSE
+St. Johns,FALSE
+St. Joseph,FALSE
+St. Libory,FALSE
+Sandoval,FALSE
+St. Peter,FALSE
+Salem,FALSE
+Sammons Point,FALSE
+Sandwich,FALSE
+San Jose,FALSE
+Sauget,FALSE
+Sauk Village,TRUE
+Saunemin,FALSE
+Willowbrook,FALSE
+Williamsville,FALSE
+Willisville,FALSE
+Willow Hill,FALSE
+Willow Springs,TRUE
+Wilmette,TRUE
+Wilmington,FALSE
+Morris,FALSE
+Morrison,FALSE
+Morrisonville,FALSE
+Morton,FALSE
+Morton Grove,TRUE
+Mound City,FALSE
+Mounds,FALSE
+Mount Erie,FALSE
+Mound Station,FALSE
+Mount Auburn,FALSE
+Mount Carmel,FALSE
+Mount Carroll,FALSE
+Mount Clare,FALSE
+Mount Morris,FALSE
+Mount Olive,FALSE
+Mount Prospect,TRUE
+Mount Pulaski,FALSE
+Mount Sterling,FALSE
+Muddy,FALSE
+Mount Zion,FALSE
+Moweaqua,FALSE
+Mulberry Grove,FALSE
+Mulkeytown,FALSE
+Muncie,FALSE
+Mundelein,FALSE
+Murphysboro,FALSE
+Murrayville,FALSE
+Nason,FALSE
+Mount Vernon,FALSE
+Naperville,FALSE
+Hawthorn Woods,FALSE
+Hazel Crest,TRUE
+Naplate,FALSE
+Naples,FALSE
+Nashville,FALSE
+Nauvoo,FALSE
+Nebo,FALSE
+Nelson,FALSE
+Neoga,FALSE
+Neponset,FALSE
+New Bedford,FALSE
+Newark,FALSE
+New Athens,FALSE
+New Baden,FALSE
+New Berlin,FALSE
+New Boston,FALSE
+New Burnside,FALSE
+New Canton,FALSE
+New Douglas,FALSE
+New Grand Chain,FALSE
+Newman,FALSE
+New Haven,FALSE
+New Holland,FALSE
+New Lenox,FALSE
+New Milford,FALSE
+New Minden,FALSE
+New Salem,FALSE
+Newton,FALSE
+Niantic,FALSE
+Beach Park,FALSE
+Batchtown,FALSE
+Baylis,FALSE
+Beardstown,FALSE
+Beason,FALSE
+Beaverville,FALSE
+Beckemeyer,FALSE
+Bedford Park,TRUE
+Belle Prairie City,FALSE
+Bath,FALSE
+Beecher,FALSE
+Beecher City,FALSE
+Belgium,FALSE
+Belknap,FALSE
+Belle Rive,FALSE
+Davis Junction,FALSE
+Dawson,FALSE
+Dayton,FALSE
+Decatur,FALSE
+Deer Creek,FALSE
+Deerfield,TRUE
+Deer Grove,FALSE
+Deer Park,FALSE
+De Pue,FALSE
+DeKalb,FALSE
+De Land,FALSE
+Delavan,FALSE
+De Soto,FALSE
+Des Plaines,TRUE
+Detroit,FALSE
+De Witt,FALSE
+Diamond,FALSE
+Dieterich,FALSE
+Dix,FALSE
+Dixon,FALSE
+Dixmoor,TRUE
+Divernon,FALSE
+Dolton,TRUE
+Dongola,FALSE
+Donnellson,FALSE
+Donovan,FALSE
+Dorchester,FALSE
+Downs,FALSE
+Dover,FALSE
+Dowell,FALSE
+Hebron,FALSE
+Hecker,FALSE
+Henderson,FALSE
+Hennepin,FALSE
+Henning,FALSE
+Herrin,FALSE
+Henry,FALSE
+Heritage Lake,FALSE
+Herrick,FALSE
+Herscher,FALSE
+Hettick,FALSE
+Heyworth,FALSE
+Hickory Hills,TRUE
+Hidalgo,FALSE
+Highland,FALSE
+Hillsboro,FALSE
+Highland Park,FALSE
+Highwood,FALSE
+Hillcrest,FALSE
+Hillsdale,FALSE
+Hillside,TRUE
+Hillview,FALSE
+Hinckley,FALSE
+Hindsboro,FALSE
+Hinsdale,TRUE
+Holiday Hills,FALSE
+Hodgkins,TRUE
+Hoffman,FALSE
+Hoffman Estates,TRUE
+Holiday Shores,FALSE
+Hollowayville,FALSE
+Homer,FALSE
+Homer Glen,FALSE
+Hometown,TRUE
+Homewood,TRUE
+Hoopeston,FALSE
+Hopkins Park,FALSE
+Hooppole,FALSE
+Hopedale,FALSE
+Hopewell,FALSE
+Hoyleton,FALSE
+Hudson,FALSE
+Huey,FALSE
+Hull,FALSE
+Humboldt,FALSE
+Hutsonville,FALSE
+Huntley,FALSE
+Hume,FALSE
+Hurst,FALSE
+Illiopolis,FALSE
+Ina,FALSE
+Indian Creek,FALSE
+Indian Head Park,TRUE
+Indianola,FALSE
+Industry,FALSE
+Ingalls Park,FALSE
+Belleville,FALSE
+Bellevue,FALSE
+Bellflower,FALSE
+Bay View Gardens,FALSE
+Bellmont,FALSE
+Bement,FALSE
+Benld,FALSE
+Bellwood,TRUE
+Belvidere,FALSE
+Bensenville,FALSE
+Benson,FALSE
+Bentley,FALSE
+Benton,FALSE
+Berkeley,TRUE
+Berlin,FALSE
+Biggsville,FALSE
+Berwyn,TRUE
+Bethalto,FALSE
+Bethany,FALSE
+Big Rock,FALSE
+Bingham,FALSE
+Bishop Hill,FALSE
+Bismarck,FALSE
+Blandinsville,FALSE
+Blue Mound,FALSE
+Bloomingdale,FALSE
+Bloomington,FALSE
+Blue Island,TRUE
+Bluffs,FALSE
+Bluford,FALSE
+Bolingbrook,FALSE
+Bondville,FALSE
+Bone Gap,FALSE
+Bonfield,FALSE
+Bourbonnais,FALSE
+Bonnie,FALSE
+Boody,FALSE
+Boulder Hill,FALSE
+Bowen,FALSE
+Braceville,FALSE
+Bradford,FALSE
+Bradley,FALSE
+Braidwood,FALSE
+Pleasant Hill,FALSE
+Pleasant Plains,FALSE
+Plymouth,FALSE
+Pocahontas,FALSE
+Polo,FALSE
+Poplar Grove,FALSE
+Pontiac,FALSE
+Pontoon Beach,FALSE
+Pontoosuc,FALSE
+Port Barrington,FALSE
+Port Byron,FALSE
+Posen,TRUE
+Potomac,FALSE
+Prairie City,FALSE
+Prairie du Rocher,FALSE
+Princeton,FALSE
+Prairie Grove,FALSE
+Prestbury,FALSE
+Preston Heights,FALSE
+Princeville,FALSE
+Prophetstown,FALSE
+Downers Grove,FALSE
+Du Bois,FALSE
+Dunfermline,FALSE
+Dunlap,FALSE
+Dupo,FALSE
+Du Quoin,FALSE
+Durand,FALSE
+East Alton,FALSE
+Dwight,FALSE
+Eagarville,FALSE
+Earlville,FALSE
+East Brooklyn,FALSE
+East Cape Girardeau,FALSE
+East Carondelet,FALSE
+East Dubuque,FALSE
+East Dundee,FALSE
+East Galesburg,FALSE
+Easton,FALSE
+East Gillespie,FALSE
+East Hazel Crest,TRUE
+East Moline,FALSE
+East Peoria,FALSE
+East St. Louis,FALSE
+Eddyville,FALSE
+Edgewood,FALSE
+Edinburg,FALSE
+Edwardsville,FALSE
+Tilton,FALSE
+Time,FALSE
+Tinley Park,TRUE
+Tiskilwa,FALSE
+Toledo,FALSE
+Topeka,FALSE
+Tolono,FALSE
+Toluca,FALSE
+Tonica,FALSE
+Toulon,FALSE
+Tovey,FALSE
+Towanda,FALSE
+Tower Hill,FALSE
+Tower Lakes,FALSE
+Tremont,FALSE
+Troy Grove,FALSE
+Trenton,FALSE
+Trout Valley,FALSE
+Troy,FALSE
+Tuscola,FALSE
+Twin Grove,FALSE
+Ullin,FALSE
+Union,FALSE
+Union Hill,FALSE
+University Park,FALSE
+Valley City,FALSE
+Urbana,FALSE
+Ursa,FALSE
+Valier,FALSE
+Valmeyer,FALSE
+Vandalia,FALSE
+Varna,FALSE
+Venedy,FALSE
+Venetian Village,FALSE
+Venice,FALSE
+Vernon,FALSE
+Vergennes,FALSE
+Vermilion,FALSE
+Prospect Heights,TRUE
+Pulaski,FALSE
+Quincy,FALSE
+Radom,FALSE
+Raleigh,FALSE
+Rantoul,FALSE
+Ramsey,FALSE
+Rankin,FALSE
+Ransom,FALSE
+Rapids City,FALSE
+Raritan,FALSE
+Raymond,FALSE
+Red Bud,FALSE
+Reddick,FALSE
+Richmond,FALSE
+Redmon,FALSE
+Rentchler,FALSE
+Reynolds,FALSE
+Richton Park,TRUE
+Richview,FALSE
+Ridge Farm,FALSE
+Ridgway,FALSE
+Ridott,FALSE
+Ringwood,FALSE
+Rio,FALSE
+River Grove,TRUE
+Ripley,FALSE
+Riverdale,TRUE
+River Forest,TRUE
+Riverside,TRUE
+Riverton,FALSE
+Riverwoods,FALSE
+Roanoke,FALSE
+Robbins,TRUE
+Roberts,FALSE
+Robinson,FALSE
+Vermont,FALSE
+Vernon Hills,FALSE
+Verona,FALSE
+Versailles,FALSE
+Victoria,FALSE
+Vienna,FALSE
+Villa Grove,FALSE
+Virgil,FALSE
+Villa Park,FALSE
+Viola,FALSE
+Virden,FALSE
+Virginia,FALSE
+Volo,FALSE
+Wadsworth,FALSE
+Waggoner,FALSE
+Walnut,FALSE
+Walnut Hill,FALSE
+Walshville,FALSE
+Waltonville,FALSE
+Wamac,FALSE
+Hines,TRUE

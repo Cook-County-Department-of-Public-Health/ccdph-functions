@@ -1,0 +1,106 @@
+---
+title: ''
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(magrittr)
+library(tidyverse)
+library(sf)
+library(rgdal)
+library(rgeos)
+library(tidycensus)
+library(rvest)
+
+```
+
+```{r shapefiles}
+
+zips = read_csv("https://github.com/Cook-County-Department-of-Public-Health/ccdph-data-sets/blob/main/Suburban%20Cook%20Zip%20Codes.csv?raw=TRUE")
+
+zips_shape = sf::st_read(dsn = "../../shapefiles/", layer = "Cook_Zip_Codes") 
+
+munis_shape = sf::st_read(dsn = "../../shapefiles/", layer = "cookMuniWGS84") %>%
+  dplyr::mutate(MUNICIPALI = ifelse(MUNICIPALI == "Mc Cook", "McCook", MUNICIPALI)) %>%
+  filter(!is.na(MUNICIPALI))
+
+
+ggplot(zips_shape) +
+  geom_sf(color = "black") +
+  theme_minimal()
+
+ggplot(munis_shape) +
+  geom_sf(color = "black") +
+  theme_minimal()
+
+#join = st_overlaps(x = munis_shape2, y = zips_shape2) #doesn't work
+
+munis_shape_ogr = readOGR(dsn = "../../shapefiles/", layer = "cookMuniWGS84")
+munis_shape_ogr = munis_shape_ogr[!is.na(munis_shape_ogr@data$MUNICIPALI),]
+munis_shape_ogr@data %<>% mutate(MUNICIPALI = ifelse(MUNICIPALI == "Mc Cook", "McCook", MUNICIPALI))
+zips_shape_ogr = readOGR(dsn = "../../shapefiles/", layer = "Cook_Zip_Codes")
+
+
+#https://gis.stackexchange.com/questions/140504/extracting-intersection-areas-in-r
+intersect = gIntersects(munis_shape_ogr,zips_shape_ogr,byid=T) %>%
+  as.data.frame() %>%
+  set_colnames(munis_shape_ogr@data$MUNICIPALI) %>%
+  mutate(zip = zips_shape_ogr@data$GEOID10) %>%
+  pivot_longer(cols = 1:139, names_to = "city") %>%
+  filter(value == TRUE) %>%
+  select(zip, city) %>%
+  add_row(zip = "60141", city = "Hines")
+
+write_csv(intersect, "data/cook-zipcodes-and-cities.csv")
+
+
+#test = intersect %>% left_join(zips %>% mutate(`Zip Code` = as.character(`Zip Code`)), by = c("zip" = "Zip Code")) #all "primary city" from Kelley's list are in the intersect list for given zip
+```
+
+```{r valid-town-names}
+muni_pops = read_csv("https://github.com/Cook-County-Department-of-Public-Health/ccdph-data-sets/blob/main/Municipality%20Populations.csv?raw=TRUE") %>%
+  filter(Population2010 > 0)
+
+places_il = get_decennial(geography = "place", state = "IL", variables = "P001001") %>%
+  mutate(city = gsub(" (village|town|city|CDP)\\, Illinois", "", NAME)
+         ) %>%
+  select(city) %>%
+  unique() %>%
+  mutate(in_cook = city %in% muni_pops$Municipality | city == "Chicago") %>%
+  add_row(city = "Hines", in_cook = TRUE)
+
+setdiff(muni_pops$Municipality, places_il$city) #all there
+
+write_csv(places_il, "data/illinois-cities.csv")
+
+```
+
+```{r chi}
+#chicago community areas
+url = "https://en.wikipedia.org/wiki/List_of_neighborhoods_in_Chicago"
+
+chi_areas = url %>% read_html() %>%
+  html_node(xpath = '//*[@id="mw-content-text"]/div[1]/table[1]') %>%
+  html_table() %>%
+  clean_names()
+
+write_csv(chi_areas, "data/chicago-neighborhoods.csv")
+
+```
+
+```{r il-zips}
+
+subcook_zips = read_csv("https://github.com/Cook-County-Department-of-Public-Health/ccdph-data-sets/blob/main/Suburban%20Cook%20Zip%20Codes.csv?raw=TRUE")
+
+il_zips = get_decennial(geography = "zcta", state = "IL", variables = "P001001") %>%
+  mutate(zip = substring(GEOID, 3, 7)) %>%
+  select(zip) %>%
+  mutate(subcook = zip %in% subcook_zips$`Zip Code`)
+
+write_csv(il_zips, "data/illinois-zip-codes.csv")
+
+```
+
+
