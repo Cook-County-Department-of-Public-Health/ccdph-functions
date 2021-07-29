@@ -21,6 +21,15 @@ test = read_csv(file_name("Covid Patients by County", extension = "csv"), skip =
          ) %>%
   select(city, zip)
 
+onedrive_path = key_get("one_drive_path")
+vaccine_history = read_rds(paste0(onedrive_path, "Kelley and Hannah/Covid Shiny Data Files/vaccine_history.rds"))
+
+test = sample_n(vaccine_history, 200000)%>%
+  clean_names() %>%
+  mutate(zip = gsub("\\-.*$", "", zip_code)) %>%
+  select(city, zip)
+
+
 il_cities = read_csv("data/illinois-cities.csv")
 city_zips = read_csv("data/cook-zipcodes-and-cities.csv")
 chi_areas = read_csv("data/chicago-neighborhoods.csv")
@@ -53,7 +62,7 @@ clean_cook_town = function(town, zip_code = NULL){
   #check if blank/null
   if(town %in% c("Null", "Illinois", "Il", "Needs Updating", "", "Cook",
                  "Unknown", "Homeless", "Cook County", "Lake", "Usa",
-                 "N", "N/A", "Illinois City")){
+                 "N", "N/A", "Illinois City", "N A")){
     return(NA_character_)
   }
   
@@ -79,7 +88,9 @@ clean_cook_town = function(town, zip_code = NULL){
     gsub("La Grange Highlands", "La Grange", .) %>%
     gsub("Summit Argo|\\Argo\\b", "Summit", .) %>%
     gsub("Techny", "Northbrook", .) %>%
-    gsub("\\Chgo\\b|\\Chg\\b|\\Cgo\\b", "Chicago", .) 
+    gsub("\\Chgo\\b|\\Chg\\b|\\Cgo\\b|\\Chi\\b", "Chicago", .) %>%
+    gsub("Illinois|\\Il\\b", "", .) %>%
+    gsub("\\Parque\\b", "Park", .)
     
   
   #check if real town name
@@ -93,18 +104,6 @@ clean_cook_town = function(town, zip_code = NULL){
     return("Chicago")
   }
   
-  #check if super close to a town name with jw
-  closest_match = find_closest_match(town, il_cities$city, threshold =0.05)
-  #if no closest match with jw- use osa to see if only one letter off from something (and only one thing)
-  if(is.na(closest_match)){
-    if(length(which(stringdist(tolower(town), tolower(il_cities$city)) == 1)) == 1){
-      closest_match = find_closest_match(town, il_cities$city, threshold = 1, 
-                                         method = "osa")
-    }
-  }
-  if(!is.na(closest_match)){
-    return(closest_match)
-  }
   
   #if zipcode provided, match within zipcode towns
   if(!is.null(zip_code) && zip_code %in% city_zips$zip){
@@ -127,6 +126,20 @@ clean_cook_town = function(town, zip_code = NULL){
     
   }
   
+  
+  #check if super close to a town name with jw --SHOULD THIS GO BEFORE OR AFTER ZIP CODE TESTS?
+  closest_match = find_closest_match(town, il_cities$city, threshold =0.05)
+  #if no closest match with jw- use osa to see if only one letter off from something (and only one thing)
+  if(is.na(closest_match)){
+    if(length(which(stringdist(tolower(town), tolower(il_cities$city)) == 1)) == 1){
+      closest_match = find_closest_match(town, il_cities$city, threshold = 1, 
+                                         method = "osa")
+    }
+  }
+  if(!is.na(closest_match)){
+    return(closest_match)
+  }
+  
   #if zipcode provided and is not in IL- stricter matching
   if(!is.null(zip_code) && !is.na(zip_code) && !(zip_code %in% il_zips$zip)){
     return(find_closest_match(town, il_cities$city, threshold =  0.1))
@@ -136,6 +149,16 @@ clean_cook_town = function(town, zip_code = NULL){
   match = find_closest_match(town, il_cities$city[il_cities$in_cook], threshold = 0.25)
   if(!is.na(match)){
     return(match)
+  }
+  
+  #if no match in cook towns and zipcode is only in one city, return that city
+  if(!is.null(zip_code) && !is.na(zip_code)){
+    zip_towns = city_zips %>%
+      filter(zip == zip_code) %>%
+      pull(city)    
+    if(length(zip_towns) == 1){
+      return(zip_towns)
+    }
   }
   
   #try matching with all il towns
@@ -163,19 +186,31 @@ clean_cook_towns = function(towns, zips = NULL){
 }
 
 start_time = Sys.time()
-test_clean2 = test %>%
+test_clean_2 = test %>%
   mutate(clean = clean_cook_towns(city, zip))
 end_time = Sys.time()
 end_time-start_time #takes about 1 second per 1000 towns
 
-test_clean2_dif = test_clean2 %>%
-  filter(clean != str_to_title(city)) %>%
+test_clean_dif = test_clean %>%
+  filter(clean != str_to_title(city) |
+           !is.na(city) & is.na(clean)) %>%
   mutate(clean_no_zip = clean_cook_towns(city),
          dif_no_zip = clean != clean_no_zip
          ) %>%
-  unique()
+  left_join(il_cities, by = c("clean" = "city")) %>%
+  rename(clean_in_cook = in_cook) 
 
-test_clean = test %>% 
+write_csv(test_clean_dif, "clean-towns-check.csv")
+
+test_clean_dif %<>%
+  mutate(clean_2 = clean_cook_towns(city, zip),
+         clean_no_zip_2 = clean_cook_towns(city),
+         dif_clean_1_and_2 = clean_2 != clean | clean_no_zip != clean_no_zip_2 |
+           (is.na(clean_2) & !is.na(clean)) | (!is.na(clean_2) & is.na(clean)) |
+           (is.na(clean_no_zip) & !is.na(clean_no_zip_2)) | (!is.na(clean_no_zip) & is.na(clean_no_zip_2))
+         )
+
+test_clean_na = test %>% 
   rowwise() %>%
   mutate(clean = clean_cook_town(city)) %>%
   filter(is.na(clean))
