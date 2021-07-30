@@ -4,15 +4,15 @@ library(magrittr)
 library(janitor)
 
 #Calculate a census estimate for CCDPH jurisdiction
-ccdph_census_population = function(variable, year = 2010){
+ccdph_census_population = function(variable, year = 2010, sumfile = "sf1"){
   all_cook  = get_decennial(geography = "county", 
                                              state = "IL", county = "Cook",
-                                             year = year, variables = variable) %>%
+                                             year = year, variables = variable, sumfile = sumfile) %>%
     pull(value)
   
   ooj  = get_decennial(geography = "place", 
                                         state = "IL", 
-                                        year = year, variables = variable) %>%
+                                        year = year, variables = variable, sumfile = sumfile) %>%
     filter(NAME %in% c("Chicago city, Illinois",
                        "Evanston city, Illinois",
                        "Skokie village, Illinois",
@@ -23,7 +23,7 @@ ccdph_census_population = function(variable, year = 2010){
   
   ooj2  = get_decennial(geography = "county subdivision", 
                                          state = "IL", county = "Cook",
-                                         year = year, variables = variable) %>%
+                                         year = year, variables = variable, sumfile = sumfile) %>%
     filter(NAME == "Stickney township, Cook County, Illinois") %>%
     pull(value)
   
