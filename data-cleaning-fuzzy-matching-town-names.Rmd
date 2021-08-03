@@ -18,6 +18,8 @@ library(rvest)
 
 ```{r shapefiles}
 
+#goal is to create a one-to-many matching file of zipcodes to cities (i.e. every city that enters the zip code should be associated with that zip code)- this is intersecting zctas and munis shapefiles
+
 zips = read_csv("https://github.com/Cook-County-Department-of-Public-Health/ccdph-data-sets/blob/main/Suburban%20Cook%20Zip%20Codes.csv?raw=TRUE")
 
 zips_shape = sf::st_read(dsn = "../../shapefiles/", layer = "Cook_Zip_Codes") 
