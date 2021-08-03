@@ -187,7 +187,7 @@ clean_cook_towns = function(towns, zips = NULL){
 }
 
 start_time = Sys.time()
-test_clean_2 = test %>%
+test_clean = test %>%
   mutate(clean = clean_cook_towns(city, zip))
 end_time = Sys.time()
 end_time-start_time #takes about 1 second per 1000 towns
