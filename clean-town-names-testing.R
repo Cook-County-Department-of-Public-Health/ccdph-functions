@@ -90,7 +90,8 @@ clean_cook_town = function(town, zip_code = NULL){
     gsub("Techny", "Northbrook", .) %>%
     gsub("\\Chgo\\b|\\Chg\\b|\\Cgo\\b|\\Chi\\b", "Chicago", .) %>%
     gsub("Illinois|\\Il\\b", "", .) %>%
-    gsub("\\Parque\\b", "Park", .)
+    gsub("\\Parque\\b", "Park", .) %>%
+    gsub("Cc Hills", "Country Club Hills")
     
   
   #check if real town name
@@ -127,7 +128,7 @@ clean_cook_town = function(town, zip_code = NULL){
   }
   
   
-  #check if super close to a town name with jw --SHOULD THIS GO BEFORE OR AFTER ZIP CODE TESTS?
+  #check if super close to a town name with jw
   closest_match = find_closest_match(town, il_cities$city, threshold =0.05)
   #if no closest match with jw- use osa to see if only one letter off from something (and only one thing)
   if(is.na(closest_match)){
