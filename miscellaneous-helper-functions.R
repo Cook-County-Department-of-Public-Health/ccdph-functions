@@ -16,6 +16,21 @@ MMWRweekEnd = function(date){
   MMWRweekStart(date) + 6
 }
 
+#Function to censor data
+suppress_count <- function(number_var, censor_threshold = 5) { 
+  
+  number_var = ifelse(number_var > 0 & number_var < censor_threshold, NA, number_var) 
+  
+  }
+
+
+#function to calculate rates
+rate <- function(num, pop, pop_denom, decimals = 0) { 
+  
+  round(num/pop*pop_denom, decimals) 
+  
+  }
+
 
 #Clean common misspellings and inconsistencies in sub-Cook town names from INEDSS records
 clean_towns_INEDDS <- function(towns){
