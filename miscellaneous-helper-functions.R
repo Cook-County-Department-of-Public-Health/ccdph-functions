@@ -29,7 +29,14 @@ rate <- function(num, pop, pop_denom, decimals = 0) {
   
   round(num/pop*pop_denom, decimals) 
   
-  }
+}
+
+
+#function to add percents following a count()
+add_percent <- function(dataset){
+  
+  dataset %>% mutate(proportion = round(n / sum(n) * 100, 1))
+}
 
 
 #Clean common misspellings and inconsistencies in sub-Cook town names from INEDSS records
