@@ -7,7 +7,7 @@ library(keyring)
 
 
 #URL for internal geocoder is private -- use key_set to store once per computer
-key_set("geocoder-url")
+#key_set("geocoder-url")
 
 
 #### Functions ####
@@ -72,25 +72,25 @@ geocode_address_sl<- function(address, wkid = 3435) {
 
 #### USE EXAMPLE ####
 
-#Note: functions above are not vectorized so if using them in the tidyverse, they must be used with either rowwise() or map() functions
-# using purrr map functions seems faster in speed tests and is cleaner code
-
-test_address <- read_csv("https://datacatalog.cookcountyil.gov/resource/ybvh-5bzv.csv") %>%
-  select(-url) %>%
-  mutate(location_1 = trimws(gsub("\\s*\\([^\\)]+\\)", "", location_1))) 
-
-#multiple field example
-test_call <- test_address %>%
-  mutate(result = pmap(list(street = street_address, city = municipality, zip = zip_code), 
-                       .f = geocode_address)) %>%
-  #note: if address fields have same names as arguments: pmap(., .f=geocode_address) will work
-  unnest(result) %>%
-  select(-result)
-
-#single field example
-test_call_sl <- test_address %>%
-  mutate(result = map(location_1, geocode_address_sl)) %>%
-  unnest(result) %>%
-  select(-result)
+# #Note: functions above are not vectorized so if using them in the tidyverse, they must be used with either rowwise() or map() functions
+# # using purrr map functions seems faster in speed tests and is cleaner code
+# 
+# test_address <- read_csv("https://datacatalog.cookcountyil.gov/resource/ybvh-5bzv.csv") %>%
+#   select(-url) %>%
+#   mutate(location_1 = trimws(gsub("\\s*\\([^\\)]+\\)", "", location_1))) 
+# 
+# #multiple field example
+# test_call <- test_address %>%
+#   mutate(result = pmap(list(street = street_address, city = municipality, zip = zip_code), 
+#                        .f = geocode_address)) %>%
+#   #note: if address fields have same names as arguments: pmap(., .f=geocode_address) will work
+#   unnest(result) %>%
+#   select(-result)
+# 
+# #single field example
+# test_call_sl <- test_address %>%
+#   mutate(result = map(location_1, geocode_address_sl)) %>%
+#   unnest(result) %>%
+#   select(-result)
 
 
