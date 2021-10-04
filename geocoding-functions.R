@@ -4,13 +4,15 @@
 library(magrittr)
 library(jsonlite)
 library(keyring)
+library(httr)
 
 
-#URL for internal geocoder is private -- use key_set to store once per computer
+#URLs for internal geocoders are private -- use key_set to store once per computer
 #key_set("geocoder-url")
+#key_set("batch-geocoder-url")
 
 
-#### Functions ####
+#### Single-Address Geocoder Functions ####
 #default CRS for returned coordinates is state plane; use the wkid argument to adjust as needed
 
 #address stored in separate fields
@@ -70,7 +72,7 @@ geocode_address_sl<- function(address, wkid = 3435) {
 
 
 
-#### USE EXAMPLE ####
+#### Single Address Use Example ####
 
 # #Note: functions above are not vectorized so if using them in the tidyverse, they must be used with either rowwise() or map() functions
 # # using purrr map functions seems faster in speed tests and is cleaner code
@@ -94,3 +96,63 @@ geocode_address_sl<- function(address, wkid = 3435) {
 #   select(-result)
 
 
+
+#### Batch Geocoder Function ####
+
+#Batch geocoder is a little clunkier to use but much faster; use when you have a large number of address
+#For best results, clean all address fields before using (e.g. remove special characters)
+#Only use with addresses stored in separate fields and when both city and zip are available
+#Batch geocoder has a limit of 5000 addresses, see code example for splitting datasets
+
+batch_geocode <-function(dataset, id_field, street, city, zip) {
+  
+  # extract address fields from dataset and rename to geocoder expected attributes
+  address_fields <- dataset %>%
+    select(STREET = {{ street }}, CITY = {{ city }}, ZIP = {{ zip }}, OBJECTID = {{id_field}}) %>%
+    drop_na()
+  
+  # create input json for POST request
+  addresses_json <- jsonlite::toJSON(list(records=address_fields),flatten = T)
+  addresses_text <- addresses_json %>% 
+    str_replace_all('\\{\\"STREET\\"', '\\{\\"attributes\\":\\{\"STREET\\"') %>% 
+    str_replace_all('\\},\\{\\"attributes\\"','\\}\\},\\{\\"attributes\\"') %>%
+    str_replace_all('\\}\\]\\}','\\}\\}\\]\\}')
+  
+  
+  # send POST request
+  geocoder_service <- key_get("batch-geocoder-url")
+  addresses_json_rev <- rjson::fromJSON(addresses_text)
+  addresses_json_rev <- jsonlite::toJSON(addresses_json_rev, flatten=TRUE, auto_unbox = TRUE)
+  request_geo <- POST(url = geocoder_service,
+                      body = list(addresses=addresses_json_rev,f="json"),
+                      encode="form")
+  result_json <- content(request_geo,"parsed","application/json")
+  
+  # format returned content
+  result_df <- data.frame()
+  for (i in seq_len(length(result_json$locations))){
+    d <- with(result_json$locations[[i]], {data.frame(OBJECTID = attributes$ResultID,
+                                                      X = as.numeric(location$x),
+                                                      Y = as.numeric(location$y),
+                                                      score = score, 
+                                                      status = attributes$Status,
+                                                      address_match = attributes$Match_addr,
+                                                      residence_city = attributes$User_fld)})
+    result_df <- rbind(result_df, d)
+  }
+  
+  #re-join geocoding results to input dataset
+  join_index <- enquo(id_field)
+  by <- set_names("OBJECTID", quo_name(join_index))
+  final_result <- dataset %>%
+    left_join(result_df, by = by)
+  
+}
+
+
+#### Batch Use Example ####
+
+# geocoded_results <- dataset_to_be_geocoded %>% 
+#   group_by(row_number() %/% 5000) %>%   #split dataset into list of datasets under batch geocoder limit
+#   group_map(~batch_geocode(.x, patient_id, address, city, zip_code)) %>%   #apply function to each item of list
+#   bind_rows()  #bind geocoded mini datasets back into one large dataset
