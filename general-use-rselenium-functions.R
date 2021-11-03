@@ -75,8 +75,13 @@ start_server = function(instance = 1){
 }
 
 #End server session
-stop_server = function(){
-  remDr$server$stop() 
+stop_server = function(need_java_kill = F){
+  
+  remDr$server$stop() #stop server
+  
+  if (need_java_kill) {system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)}
+  #open rselenium issue affecting some environments - lingering java process keeps port open
+  #reference: https://github.com/ropensci/RSelenium/issues/228
 }
 
 #enter text into a text box- text can be a single argument or a vector
