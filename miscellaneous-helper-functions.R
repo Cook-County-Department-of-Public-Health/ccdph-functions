@@ -257,3 +257,11 @@ make_pretty_intervals <- function(interval_var){
   return(pretty_intervals[interval_var])
   
 }
+
+#simple function to clean patient names for matching
+clean_name = function(name){
+  name %>%
+    toupper() %>%
+    gsub(" JR| SR|\\W| \\w$", "", .)
+  
+}
