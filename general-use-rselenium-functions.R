@@ -67,7 +67,10 @@ start_server = function(instance = 1){
   firefoxProfile <- makeFirefoxProfile(list(browser.helperApps.neverAsk.saveToDisk = "application/comma-separated-values ,text/csv"))
   
   #Open selenium session
-  remDr <<- rsDriver(browser = "firefox", extraCapabilities = firefoxProfile, port = as.integer(4566 + instance))
+  remDr <<- rsDriver(browser = "firefox", 
+                     extraCapabilities = firefoxProfile, 
+                     port = as.integer(4566 + instance),
+                     chromever=NULL) #temp fix while chrome license driver causing failure; don't check for chrome
   
   #Extract the client for navigation
   rD <<- remDr[['client']]
