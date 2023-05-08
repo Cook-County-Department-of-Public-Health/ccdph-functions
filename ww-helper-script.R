@@ -1,6 +1,7 @@
 # Wastewater Trend Classification Helpers Script
-# Preprocesses wastewater data from IDPH, implements flow and PMMOV normalization for following targets: Sars-Cov2, Flu A/B, RSV
-# Implement GAM to quantify viral trends using derivative of fitted spline
+# On source() this will:
+#   -Preprocess wastewater data from IDPH, implements flow and PMMOV normalization for following targets: Sars-Cov2, Flu A/B, RSV
+#   -Load function to implement GAM to quantify viral trends using derivative of fitted spline
 # Created 5/3/23 by rishi.kowalski@cookcountyhealth.org
 
 #load relevant packages
