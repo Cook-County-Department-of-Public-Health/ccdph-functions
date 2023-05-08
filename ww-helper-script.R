@@ -1,7 +1,6 @@
 # Wastewater Trend Classification Helpers Script
-# On source() this will:
-#   -Preprocess wastewater data from IDPH, implements flow and PMMOV normalization for following targets: Sars-Cov2, Flu A/B, RSV
-#   -Load function to implement GAM to quantify viral trends using derivative of fitted spline
+# Preprocesses wastewater data from IDPH, implements flow and PMMOV normalization for following targets: Sars-Cov2, Flu A/B, RSV
+# Implement GAM to quantify viral trends using derivative of fitted spline
 # Created 5/3/23 by rishi.kowalski@cookcountyhealth.org
 
 #load relevant packages
@@ -13,7 +12,15 @@ require(plotly)
 
 ## Wastewater Preprocessing ##
 #read in data, data comes in from /nwss flu/ from initial work with nwss ili - adapted for other diseases 4/27/23
-ww_raw <- read_csv(paste0(key_get("rk-data-fpath"), "nwss/05_01_2023_NWSS_IDPH.csv")) %>% janitor::clean_names()
+tryCatch( #throw filepath reminder on source()
+  expr = {
+    ww_raw <- read_csv(paste0(key_get("rk-data-fpath"), "nwss/05_08_2023_NWSS_IDPH.csv")) %>% janitor::clean_names()
+    message("Success: loaded raw NWSS Data.")
+    },
+  error = {
+    message("Please check data file location, and/or keyring filepath and reload.")
+  })
+
 
 #adapted kelley code to clean ww data
 ww_clean <- ww_raw %>%
