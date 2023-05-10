@@ -24,7 +24,7 @@ tryCatch( #throw filepath reminder on source()
 
 #adapted kelley code to clean ww data
 ww_clean <- ww_raw %>%
-  filter(county_names == 17031 & sample_location == "wwtp" & sample_collect_date >= as.Date("2022-10-12")) %>%  
+  filter(county_names == 17031 & sample_location == "wwtp") %>%  
   #drop_na(inf_a_copies_l_wastewater) %>% #remove as rsv testing begins 2/23 creates many nas - account for in gam
   mutate(
     wwtp_name = tolower(wwtp_name), #clean names
