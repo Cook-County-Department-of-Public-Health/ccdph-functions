@@ -25,9 +25,11 @@ library(units)
 # schema_name = name of schema spatial database table is assigned to (defaults to "ref")
 # db_table_name = name of spatial table in inter-spatial database
 # crs_id = coordinate reference system identification (defaults to 3435)
+# Note that schema defaults to "ref" and crs defaults to 3435. 
+# All data in inter-spatial are in crs 3435. Sending read function with crs_id=4326 
+# automatically transforms the data into 4326 for leaflet mapping
 
-# Read spatial data example
-# Note that schema defaults to "ref" and crs defaults to 3435
+# Read spatial data example, output in crs 4326:
 # counties_illinois_sf <- fx_read_spatial_layer_fr_database(db_table_name = "counties_illinois", crs_id = 4326)
 
 fx_read_spatial_layer_fr_database <- function(schema_name="ref", db_table_name, crs_id=3435){
