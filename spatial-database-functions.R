@@ -29,7 +29,6 @@ library(units)
 # All data in inter-spatial are in crs 3435. Sending read function with crs_id=4326 
 # automatically transforms the data into 4326 for leaflet mapping
 
-# Read spatial data example, output in crs 4326:
 # counties_illinois_sf <- fx_read_spatial_layer_fr_database(db_table_name = "counties_illinois", crs_id = 4326)
 
 fx_read_spatial_layer_fr_database <- function(schema_name="ref", db_table_name, crs_id=3435){
@@ -116,6 +115,9 @@ fx_write_spatial_layer_to_database <- function(sf_layer_name, schema_name="ref",
   # read table (geometry only)
   sf_layer_db<-st_read(con_inter_spatial, 
                        query = paste0("SELECT geom.STAsBinary() as geometry FROM ", schema_name,".",db_table_name))
+  
+  
+  dbDisconnect(con_inter_spatial)
   
   return(sf_layer_db)
 }
