@@ -21,15 +21,16 @@ library(units)
 #Name of CCDPH SQL Server is encrypted. Set name using keyring's key_set function.
 #key_set("ccdph_sql_server")
 
-#| label: read spatial database function from GitHub functions repository
-
-# parameters: 
-# sf_layer_name = name of simple feature layer when imported into R
+# fx_read_spatial_layer_fr_database() parameters: 
 # schema_name = name of schema spatial database table is assigned to (defaults to "ref")
 # db_table_name = name of spatial table in inter-spatial database
 # crs_id = coordinate reference system identification (defaults to 3435)
 
-fx_read_spatial_layer_fr_database <- function(sf_layer_name, schema_name="ref", db_table_name, crs_id=3435){
+# Read spatial data example
+# Note that schema defaults to "ref" and crs defaults to 3435
+# counties_illinois_sf <- fx_read_spatial_layer_fr_database(db_table_name = "counties_illinois", crs_id = 4326)
+
+fx_read_spatial_layer_fr_database <- function(schema_name="ref", db_table_name, crs_id=3435){
   
   # connect to inter-spatial
   con_inter_spatial <- dbConnect(odbc::odbc(),
@@ -65,10 +66,19 @@ fx_read_spatial_layer_fr_database <- function(sf_layer_name, schema_name="ref", 
   return(sf_layer_temp)
 }
 
+# fx_write_spatial_layer_to_database() parameters: 
+# sf_layer_name = simple feature file in R to write to database
+# schema_name = name of schema new spatial database table is assigned to (defaults to "ref")
+# db_table_name = name of new spatial table in inter-spatial database (default is to overwrite any existing table)
+# crs_id = coordinate reference system identification (defaults to 3435)
 
-# Read spatial data example
+# Write spatial data example
 # Note that schema defaults to "ref" and crs defaults to 3435
-# counties_illinois_sf <- fx_read_spatial_layer_fr_database(sf_layer_name = "counties_il_new", db_table_name = "counties_illinois", crs_id = 4326)
+# counties_il_db <- fx_write_spatial_layer_to_database(
+#   sf_layer_name = counties_il,
+#   schema_name = "ref",
+#   db_table_name = "counties_illinois",
+#   crs_id = 3435)
 
 fx_write_spatial_layer_to_database <- function(sf_layer_name, schema_name="ref", db_table_name, crs_id=3435){
   
@@ -107,11 +117,3 @@ fx_write_spatial_layer_to_database <- function(sf_layer_name, schema_name="ref",
   
   return(sf_layer_db)
 }
-
-# Read spatial data example
-# Note that schema defaults to "ref" and crs defaults to 3435
-# counties_il_db <- fx_write_spatial_layer_to_database(
-#   sf_layer_name = counties_il,
-#   schema_name = "ref",
-#   db_table_name = "counties_illinois",
-#   crs_id = 3435)
