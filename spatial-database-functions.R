@@ -4,7 +4,7 @@
 # Purpose: read/write spatial data from/to CCDPH SQL Server inter-spatial database
 # Author: C. Scott Smith (christopher.smith@cookcountyhealth.org)
 # Created: 5/15/2023 
-# Last Updated: 5/17/2023
+# Last Updated: 7/17/2023
 
 # Attach R packages -----------------------------------------------------
 
@@ -13,13 +13,15 @@ library(DBI)
 library(odbc)
 library(dplyr)
 library(tidyverse)
-library(spData)
 library(keyring)
 library(tigris)
-library(units)
 
-#Name of CCDPH SQL Server is encrypted. Set name using keyring's key_set function.
-#key_set("ccdph_sql_server")
+# Name of CCDPH SQL Server service is encrypted. Set name using keyring's key_set function.
+# key_set("ccdph_sql_server")
+
+# To access spatial database functions in external script use the following syntax.
+# source("https://raw.githubusercontent.com/Cook-County-Department-of-Public-Health/ccdph-functions/master/spatial-database-functions.R")
+
 
 # fx_read_spatial_layer_fr_database() parameters: 
 # schema_name = name of schema spatial database table is assigned to (defaults to "ref")
