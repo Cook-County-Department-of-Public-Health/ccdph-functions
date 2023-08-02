@@ -1,0 +1,357 @@
+# Required packages
+```{r}
+
+#| label: required packages
+
+library(sf)
+library(DBI)
+library(odbc)
+library(dplyr)
+library(tidyverse)
+library(spData)
+library(keyring)
+library(tigris)
+library(units)
+
+```
+
+# Function for adding spatial data to database
+
+```{r}
+#| label: read spatial database function from GitHub functions repository
+
+fx_spatial_layer_to_database <- function(sf_layer_name, schema_name, db_table_name, crs_id){
+  
+  # connect to inter-spatial
+  con_inter_spatial <- dbConnect(odbc::odbc(),
+                                 Driver   = "SQL Server",
+                                 Server   = key_get("ccdph_sql_server"),
+                                 Database = "inter-spatial")
+  
+  sf_layer_df <- as.data.frame(sf_layer_name) # convert to data frame
+  sf_layer_geom <- sf_layer_df$geometry # isolate geometry column
+  sf_layer_df[,"geom_text"]<-st_as_text(st_transform(sf_layer_geom,crs = crs_id)) # convert geometry format
+  
+  # write data frame to database
+  dbWriteTable(conn = con_inter_spatial, 
+               Id(schema=schema_name, 
+                  table=db_table_name), 
+               overwrite= TRUE,
+               sf_layer_df %>% select(-geometry))
+  
+  # add new geometry column to database table
+  dbSendQuery(conn = con_inter_spatial, 
+              statement = paste0("ALTER TABLE ",schema_name,".",db_table_name," ADD geom geometry"))
+  
+  # transform and copy existing text-based geometry into new geometry column
+  dbSendQuery(conn = con_inter_spatial,
+              statement = paste0("UPDATE ", schema_name,".",db_table_name," Set geom = geometry::STGeomFromText(geom_text,", as.character(crs_id),")"))
+  
+  # drop text-based geometry column
+  dbSendQuery(conn = con_inter_spatial, 
+              statement = paste0("ALTER TABLE ", schema_name,".",db_table_name," DROP COLUMN geom_text"))
+  
+  # read table (geometry only)
+  sf_layer_db<-st_read(con_inter_spatial, 
+                                query = paste0("SELECT geom.STAsBinary() as geometry FROM ", schema_name,".",db_table_name))
+  
+return(sf_layer_db)
+}
+```
+
+# CCDPH-relevant boundary shapefiles
+Below is code that was used to process CCDPH-relevant cartographic boundary shapefiles made available in the CCDPH inter-spatial database. The geographic data represent both political and analytical boundaries derived from the US Census Bureau via its [TIGER/Line](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html) program. By default, census-derived shapes are generalized to 1:500K. Set "cb=FALSE" to acquire more detailed TIGER/Line files.
+
+## Counties in Illinois
+```{r}
+#| label: Illinois counties
+
+# download latest data from US Census TIGER/Line files
+counties_il <- counties(state="17", cb=TRUE)
+
+# reformat data, standardize column names
+counties_il <- counties_il %>%
+  st_transform(3435) %>%
+  st_as_sf() %>%
+  select(geoid_county = GEOID,
+         name_county = NAME,
+         area_land = ALAND,
+         area_water = AWATER) %>%
+  mutate(area_land = set_units(area_land,ft^2),
+         area_water = set_units(area_water,ft^2),
+         area_land_sqmi = set_units(area_land, mi^2),
+         area_water_sqmi = set_units(area_water,mi^2),
+         area_sqmi = area_land_sqmi + area_water_sqmi) %>%
+  select(-c(area_land,area_water))
+
+# write data to database
+counties_il_db <- fx_spatial_layer_to_database(
+  sf_layer_name = counties_il,
+  schema_name = "ref",
+  db_table_name = "counties_illinois",
+  crs_id = 3435)
+
+```
+
+## ZCTAs in Cook County
+Zip code tabulation areas (ZCTAs) in Cook County.
+```{r}
+#| label: ZCTas in Cook County
+
+# download latest data from US Census TIGER/Line files 
+# (2020 data not stratified by state)
+zctas_us <- zctas(cb=TRUE) %>%
+  st_drop_geometry() %>%
+  select(geoid_zcta = GEOID20,
+         area_land = ALAND20,
+         area_water = AWATER20)
+
+# download latest data from ccdph-shapefiles GitHub 
+zctas_cook_county <- st_read("C:/Users/christopher.smith/OneDrive - Cook County Health/git_repos/justenvirons/ccdph-shapefiles/epsg-3435-illinois-stateplane-east/cook_county_zctas_epsg3435.shp") %>%
+  select(geoid_zcta = zcta,
+         primary_city = prmry_c,
+         partial_ccdph = prtl_pp,
+         percent_ccdph = prcnt_d,
+         notes) %>%
+  drop_na(geoid_zcta) %>%
+  left_join(zctas_us, by="geoid_zcta") %>%
+  mutate(area_land = set_units(area_land,ft^2),
+         area_water = set_units(area_water,ft^2),
+         area_land_sqmi = set_units(area_land, mi^2),
+         area_water_sqmi = set_units(area_water,mi^2),
+         area_sqmi = area_land_sqmi + area_water_sqmi) %>%
+  select(-c(area_land, area_water)) %>%
+  st_transform(crs = 3435)
+
+# write simple feature layer to database
+zctas_cook_county_db <- fx_spatial_layer_to_database(
+  sf_layer_name = zctas_cook_county,
+  schema_name = "ref",
+  db_table_name = "zctas_cook_county",
+  crs_id = 3435)
+
+```
+
+## Municipalities in Cook County
+
+```{r}
+#| label: municipalities in Cook County
+
+# download latest data from US Census TIGER/Line files
+places_il <- places(state = "17", cb=TRUE)
+
+# download latest data from ccdph-shapefiles GitHub 
+munis_cook_county <- st_read("C:/Users/christopher.smith/OneDrive - Cook County Health/git_repos/justenvirons/ccdph-shapefiles/epsg-3435-illinois-stateplane-east/ccdph-cook-county-munis.shp") %>%
+  drop_na(muni_name) %>%
+  left_join(places_il %>% 
+              st_drop_geometry() %>%
+              select(NAME,geoid_place = GEOID,area_land = ALAND,area_water= AWATER), 
+            by=c("muni_name"="NAME")) %>%
+  mutate(area_land = set_units(area_land,ft^2),
+         area_water = set_units(area_water,ft^2),
+         area_land_sqmi = set_units(area_land, mi^2),
+         area_water_sqmi = set_units(area_water,mi^2),
+         area_sqmi = area_land_sqmi + area_water_sqmi,
+         location = case_when(district=="OOJ" & muni_name!="Chicago" ~ "SCC",
+                              district=="OOJ" & muni_name=="Chicago" ~ "Chicago",
+                              district != "OOJ" ~ "CCDPH")) %>%
+  select(name_place = muni_name,
+         geoid_place,
+         location,
+         district,
+         partial_ccdph = partial,
+         exclude,
+         area_land_sqmi,
+         area_water_sqmi,
+         area_sqmi) %>%
+  arrange(name_place) %>%
+  st_transform(crs = 3435)
+
+# write simple feature layer to database
+munis_cook_county_db <- fx_spatial_layer_to_database(
+  sf_layer_name = munis_cook_county,
+  schema_name = "ref",
+  db_table_name = "munis_cook_county",
+  crs_id = 3435)
+
+```
+
+## CCDPH jurisdiction
+```{r}
+#| label: CCDPH jurisdiction boundary
+
+# download latest data from US Census TIGER/Line files
+IL_Places_geom <- places(c("IL"), cb=TRUE, class="sf", year=2020)
+IL_Counties_geom <- counties(c("IL"), cb=TRUE, class="sf", year=2020)
+IL_MCDs_geom <- county_subdivisions(c("IL"), cb=TRUE, class="sf", year=2020)
+IL_Places_geom <- st_transform(IL_Places_geom, crs = 3435, year=2020)
+IL_Counties_geom <- st_transform(IL_Counties_geom, crs = 3435, year=2020)
+IL_MCDs_geom <- st_transform(IL_MCDs_geom, crs = 3435, year=2020)
+
+# Select out of jurisdiction (OOJ) places
+ooj_places <- IL_Places_geom %>% 
+  filter(#NAME=="Chicago" |
+           # NAME=="Bedford Park" |
+           # NAME=="Stickney" |
+           # NAME=="Burbank" |
+           # NAME=="Forest View" |
+           NAME=="Evanston" | 
+           NAME=="Oak Park" | 
+           NAME=="Skokie"
+           ) %>%
+  select(GEOID_place = GEOID,
+         NAME_place = NAME)
+
+# Select Minor Civil Divisions (MCD) Stickney Township, Cook County
+ooj_mcds <- IL_MCDs_geom %>% 
+  filter(COUNTYFP=="031" &
+           (NAME=="Stickney" |
+           NAME=="Chicago")) %>%
+  select(NAME_mcd = NAME,
+         GEOID_mcd = GEOID)
+
+# Create mask from union of OOJ places and Minor Civil Divisions --------
+ooj_mask <-  ooj_places %>% 
+  st_union(ooj_mcds, by_feature = FALSE) %>% 
+  st_union(by_feature = FALSE) %>% st_as_sf()
+
+# Select Cook County boundary
+cc_boundary <- IL_Counties_geom %>% 
+  filter(STATEFP=="17" & COUNTYFP=="031") %>%
+  select(GEOID_county = GEOID,
+         NAME_county = NAME)
+
+# Use mask to clip from Cook County and produce final CCDPH boundary
+ccdph_boundary <- st_difference(cc_boundary,
+                                        ooj_mask) %>%
+  mutate(NAME_ccdph="CCDPH boundary") %>%
+  select(NAME_ccdph) %>%
+  mutate(area_sqmi = st_area(geometry),
+         area_sqmi = set_units(area_sqmi, ft^2),
+         area_sqmi = set_units(area_sqmi, mi^2))
+
+
+# write simple feature layer to database
+ccdph_boundary_db <- fx_spatial_layer_to_database(
+  sf_layer_name = ccdph_boundary,
+  schema_name = "ref",
+  db_table_name = "ccdph_boundary",
+  crs_id = 3435)
+
+```
+
+## CCDPH districts 
+### Municipality-level mapping
+
+```{r}
+# download latest data from ccdph-shapefiles GitHub 
+ccdph_district_boundaries_muni <- st_read("C:/Users/christopher.smith/OneDrive - Cook County Health/git_repos/justenvirons/ccdph-shapefiles/epsg-3435-illinois-stateplane-east/ccdph_districts_boundaries_muni_epsg3435.shp") %>%
+  mutate(district = if_else(district=="Outside", "OOJ", district),
+         area_sqmi = st_area(geometry),
+         area_sqmi = set_units(area_sqmi, ft^2),
+         area_sqmi = set_units(area_sqmi, mi^2))
+
+# write simple feature layer to database
+ccdph_district_boundaries_muni_db <- fx_spatial_layer_to_database(
+  sf_layer_name = ccdph_district_boundaries_muni,
+  schema_name = "ref",
+  db_table_name = "ccdph_district_boundaries_muni",
+  crs_id = 3435)
+
+```
+
+### Census tract-level mapping
+
+```{r}
+# download latest data from ccdph-shapefiles GitHub 
+ccdph_district_boundaries_tract <- st_read("C:/Users/christopher.smith/OneDrive - Cook County Health/git_repos/justenvirons/ccdph-shapefiles/epsg-3435-illinois-stateplane-east/ccdph_districts_boundaries_tracts_epsg3435.shp") %>%
+  select(-sqmi) %>%
+  rename(num_tracts_2020 = tracts,
+         name_district = district) %>%
+  mutate(name_district = str_to_title(name_district),
+         name_district = if_else(name_district=="Outside", "OOJ", name_district),
+         area_sqmi = st_area(geometry),
+         area_sqmi = set_units(area_sqmi, ft^2),
+         area_sqmi = set_units(area_sqmi, mi^2))
+
+# write simple feature layer to database
+ccdph_district_boundaries_tract_db <- fx_spatial_layer_to_database(
+  sf_layer_name = ccdph_district_boundaries_tract,
+  schema_name = "ref",
+  db_table_name = "ccdph_district_boundaries_tract",
+  crs_id = 3435)
+
+```
+
+## Census tracts
+### 2010 census tracts in Cook County
+
+```{r}
+# download latest data from US Census TIGER/Line files
+tracts_2010_cook_county_census <- tracts(state="17", county="031", cb=TRUE, year=2010) %>%
+  st_drop_geometry() %>%
+  mutate(geoid_tract_2010 = paste0(STATE,COUNTY,TRACT),
+         name_tract_2010 = NAME,
+         area_sqmi = set_units(CENSUSAREA, mi^2)) %>%
+  select(geoid_tract_2010,
+         name_tract_2010,
+         area_sqmi)
+
+# download latest data from ccdph-shapefiles GitHub 
+tracts_2010_cook_county <- st_read("C:/Users/christopher.smith/OneDrive - Cook County Health/git_repos/justenvirons/ccdph-shapefiles/epsg-3435-illinois-stateplane-east/cc_tracts_2010_epsg3435.shp") %>%
+  select(-sqmi) %>%
+  rename(geoid_tract_2010 = fips,
+         name_district = district) %>%
+  mutate(name_district = str_to_title(name_district),
+         name_district = if_else(name_district=="Outside", "OOJ", name_district),
+         location = str_to_upper(location),
+         location = if_else(location=="CHICAGO","Chicago",location)) %>%
+  left_join(tracts_2010_cook_county_census, by="geoid_tract_2010")
+
+# write simple feature layer to database
+tracts_2010_cook_county_db <- fx_spatial_layer_to_database(
+  sf_layer_name = tracts_2010_cook_county,
+  schema_name = "ref",
+  db_table_name = "tracts_2010_cook_county",
+  crs_id = 3435)
+
+```
+
+### 2020 census tracts in Cook County
+
+```{r}
+# download latest data from US Census TIGER/Line files
+tracts_2020_cook_county_census <- tracts(state="17", county="031", cb=TRUE, year=2020) %>%
+  st_drop_geometry() %>%
+  select(geoid_tract_2020 = GEOID,
+         name_tract_2020 = NAME,
+         area_land = ALAND,
+         area_water = AWATER) %>%
+  mutate(area_land = set_units(area_land,ft^2),
+         area_water = set_units(area_water,ft^2),
+         area_land_sqmi = set_units(area_land, mi^2),
+         area_water_sqmi = set_units(area_water,mi^2),
+         area_sqmi = area_land_sqmi + area_water_sqmi) %>%
+  select(geoid_tract_2020,
+         name_tract_2020,
+         area_land_sqmi:area_sqmi)
+
+# download latest data from ccdph-shapefiles GitHub 
+tracts_2020_cook_county <- st_read("C:/Users/christopher.smith/OneDrive - Cook County Health/git_repos/justenvirons/ccdph-shapefiles/epsg-3435-illinois-stateplane-east/cc_tracts_2020_epsg3435.shp") %>%
+  select(-sqmi) %>%
+  rename(geoid_tract_2020 = fips,
+         name_district = district) %>%
+  mutate(name_district = str_to_title(name_district),
+         name_district = if_else(name_district=="Outside", "OOJ", name_district),
+         location = str_to_upper(location),
+         location = if_else(location=="CHICAGO","Chicago",location)) %>%
+  left_join(tracts_2020_cook_county_census, by="geoid_tract_2020")
+
+# write simple feature layer to database
+tracts_2020_cook_county_db <- fx_spatial_layer_to_database(
+  sf_layer_name = tracts_2020_cook_county,
+  schema_name = "ref",
+  db_table_name = "tracts_2020_cook_county",
+  crs_id = 3435)
+
+```

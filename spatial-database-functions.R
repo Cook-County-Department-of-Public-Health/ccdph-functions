@@ -12,6 +12,7 @@ library(sf)
 library(DBI)
 library(odbc)
 library(dplyr)
+library(dbplyr)
 library(tidyverse)
 library(keyring)
 library(tigris)
@@ -22,7 +23,6 @@ library(tigris)
 # To access spatial database functions in external script use the following syntax.
 # source("https://raw.githubusercontent.com/Cook-County-Department-of-Public-Health/ccdph-functions/master/spatial-database-functions.R")
 
-
 # fx_read_spatial_layer_fr_database() parameters: 
 # schema_name = name of schema spatial database table is assigned to (defaults to "ref")
 # db_table_name = name of spatial table in inter-spatial database
@@ -31,7 +31,7 @@ library(tigris)
 # All data in inter-spatial are in crs 3435. Sending read function with crs_id=4326 
 # automatically transforms the data into 4326 for leaflet mapping
 
-# counties_illinois_sf <- fx_read_spatial_layer_fr_database(db_table_name = "counties_illinois", crs_id = 4326)
+counties_illinois_sf <- fx_read_spatial_layer_fr_database(db_table_name = "counties_illinois", crs_id = 4326)
 
 fx_read_spatial_layer_fr_database <- function(schema_name="ref", db_table_name, crs_id=3435){
   
@@ -43,30 +43,22 @@ fx_read_spatial_layer_fr_database <- function(schema_name="ref", db_table_name, 
   
   # write data frame to database
   # default schema is ref
-  sf_layer_geom <- st_read(dsn = con_inter_spatial, 
-                           query = paste0("SELECT geom.STAsBinary() as geometry FROM ", schema_name,".",db_table_name))
-  
-  dbExecute(conn=con_inter_spatial, statement = paste0("SELECT * INTO [ref].[temptable] FROM ",  schema_name,".",db_table_name,";"))
-  
-  dbExecute(conn=con_inter_spatial, statement = "ALTER TABLE [ref].[temptable] DROP COLUMN geom;")
-  
-  sf_layer_attributes <- dbGetQuery(conn=con_inter_spatial, 
-                                    statement = "SELECT * FROM [ref].[temptable]")
-  
-  dbExecute(conn=con_inter_spatial, statement = "DROP TABLE [ref].[temptable];")
-  
-  sf_layer_temp <- sf_layer_attributes %>%
-    bind_cols(sf_layer_geom) %>% 
+  sf_layer_geom <- tbl(
+    src = con_inter_spatial,
+    from = in_schema(schema_name,
+                     db_table_name)) %>%
+    mutate(geom = sql("geom.STAsBinary()")) %>%
+    collect() %>%
     st_as_sf() %>%
     st_set_crs(3435)
-  
+    
   if(crs_id != 3435){
-    sf_layer_temp <- st_transform(sf_layer_temp, crs=crs_id)
+    sf_layer_geom <- st_transform(sf_layer_geom, crs=crs_id)
   }
   
   dbDisconnect(con_inter_spatial)
   
-  return(sf_layer_temp)
+  return(sf_layer_geom)
 }
 
 # fx_write_spatial_layer_to_database() parameters: 
