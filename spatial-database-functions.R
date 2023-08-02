@@ -31,7 +31,8 @@ library(tigris)
 # All data in inter-spatial are in crs 3435. Sending read function with crs_id=4326 
 # automatically transforms the data into 4326 for leaflet mapping
 
-counties_illinois_sf <- fx_read_spatial_layer_fr_database(db_table_name = "counties_illinois", crs_id = 4326)
+# example:
+# counties_illinois_sf <- fx_read_spatial_layer_fr_database(db_table_name = "counties_illinois", crs_id = 4326)
 
 fx_read_spatial_layer_fr_database <- function(schema_name="ref", db_table_name, crs_id=3435){
   
