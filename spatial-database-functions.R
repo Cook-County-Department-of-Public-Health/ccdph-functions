@@ -42,7 +42,7 @@ fx_read_spatial_layer_fr_database <- function(schema_name="ref", db_table_name, 
                                  Server   = key_get("ccdph_sql_server"),
                                  Database = "inter-spatial")
   
-  # write data frame to database
+  # read data from database
   # default schema is ref
   sf_layer_geom <- tbl(
     src = con_inter_spatial,
@@ -53,7 +53,8 @@ fx_read_spatial_layer_fr_database <- function(schema_name="ref", db_table_name, 
     st_as_sf() %>%
     st_set_crs(3435)
     
-  if(crs_id != 3435){
+  # change crs if not 3435
+    if(crs_id != 3435){
     sf_layer_geom <- st_transform(sf_layer_geom, crs=crs_id)
   }
   
