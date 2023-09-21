@@ -2,6 +2,7 @@
 library(tidyverse)
 library(magrittr)
 library(lubridate)
+library(keyring)
 
 #Function to calculate start date for MMWR week for a date
 library(MMWRweek)
@@ -17,34 +18,34 @@ MMWRweekEnd = function(date){
 }
 
 #Function to censor data
-suppress_count <- function(number_var, censor_threshold = 5) { 
-  
-  number_var = ifelse(number_var > 0 & number_var < censor_threshold, NA, number_var) 
-  
+suppress_count <- function(number_var, censor_threshold = 5) {
+
+  number_var = ifelse(number_var > 0 & number_var < censor_threshold, NA, number_var)
+
   }
 
 
 #function to calculate rates
-rate <- function(num, pop, pop_denom, decimals = 0) { 
-  
-  round(num/pop*pop_denom, decimals) 
-  
+rate <- function(num, pop, pop_denom, decimals = 0) {
+
+  round(num/pop*pop_denom, decimals)
+
 }
 
 
 #function to add percents following a count()
 add_percent <- function(dataset){
-  
+
   dataset %>% mutate(proportion = round(n / sum(n) * 100, 1))
 }
 
 
 #Clean common misspellings and inconsistencies in sub-Cook town names from INEDSS records
 clean_towns_INEDDS <- function(towns){
-  
+
   #trim leading and following whitespace
   towns = trimws(towns)
-  
+
   #correct common shorthands
   towns = gsub("Hts", "Heights", towns)
   towns = gsub("Hgts", "Heights", towns)
@@ -52,7 +53,7 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("Pk", "Park", towns)
   towns = gsub("Mt", "Mount", towns)
   towns = gsub("Spgs", "Springs", towns)
-  
+
   #correct observed typos
   towns = gsub("Bridge View", "Bridgeview", towns)
   towns = gsub("Mccook", "McCook", towns)
@@ -161,17 +162,17 @@ clean_towns_INEDDS <- function(towns){
   towns = gsub("North Lake", "Northlake", towns)
   towns = gsub("Hazelcrest", "Hazel Crest", towns)
   towns = gsub("Rolling Mdws", "Rolling Meadows", towns)
-  
-  
-  
-  
+
+
+
+
   #move La Grange Highlands to La Grange
   towns = gsub("La Grange Highlands", "La Grange", towns)
-  
+
   return(towns)
 }
 
-#named above function with a spelling mistake, used for more than just I-NEDSS now, duplicate function but 
+#named above function with a spelling mistake, used for more than just I-NEDSS now, duplicate function but
 #also keep original so scripts don't fail
 clean_cook_town_names = clean_towns_INEDDS
 
@@ -180,20 +181,20 @@ clean_salesforce_report = function(report, formatted = T){
   out = report %>%
     rename_all(~str_replace_all( ., " |\\/|\\-|\\?|\\:|\\(|\\)|\\'", "" )) %>%
     mutate(across(contains("Date"), parse_date_time, orders = c("mdy HM p", "mdy")),
-           across(contains("City"), clean_towns_INEDDS)) 
-  
+           across(contains("City"), clean_towns_INEDDS))
+
   if(formatted){
     out %<>% select(-2)
   }
-  
+
   return(out)
 }
 
 #clean addresses so matching is easier
-clean_addresses = function(address){
+clean_addresses = function(address, shorten_zip = T){
   address = toupper(address)
   address = gsub("\\.", "", address)
-  
+
   address = gsub("\\bN\\b", "NORTH", address)
   address = gsub("\\bS\\b", "SOUTH", address)
   address = gsub("\\bE\\b", "EAST", address)
@@ -202,7 +203,7 @@ clean_addresses = function(address){
   address = gsub("\\bNW\\b", "NORTHWEST", address)
   address = gsub("\\bSE\\b", "SOUTEAST", address)
   address = gsub("\\bNE\\b", "NORTHEAST", address)
-  
+
   address = gsub("\\bHWY\\b", "HIGHWAY", address)
   address = gsub("\\bRD\\b", "ROAD", address)
   address = gsub("\\bST\\b", "STREET", address)
@@ -211,9 +212,12 @@ clean_addresses = function(address){
   address = gsub("\\bBLVD\\b", "BOULEVARD", address)
   address = gsub("\\bDR\\b", "DRIVE", address)
   address = gsub("\\bLN\\b", "LANE", address)
-  
+  address = gsub("\\bCT\\b", "COURT", address)
+
   address = gsub(" (APT|#|ROOM|RM|UNIT)(| )\\d+", "", address)
-  
+
+  if (shorten_zip){address = gsub("-\\d{4}$", "", address)} #shortens 9 digit zip to 5 digit
+
   return(address)
 }
 
@@ -243,19 +247,19 @@ age_decade = function(age){
 
 #use variable in interval notation format (left closed, ordered factor) to create labels suitable for display
 make_pretty_intervals <- function(interval_var){
-  
+
   intervals_calc <- levels(interval_var)
   interval_starts <- map_dbl(intervals_calc, ~round(as.numeric(gsub("^[\\[\\(](.+),.*", "\\1", .x)), 1))
-  
+
   pretty_intervals <- sapply(1:(length(interval_starts)-1), function(i){
     return(paste(interval_starts[i], "-", interval_starts[i+1] - .1))
   }) %>%
-    c(paste("More than", interval_starts[length(interval_starts)])) 
-  
+    c(paste("More than", interval_starts[length(interval_starts)]))
+
   pretty_intervals <- factor(pretty_intervals,ordered = T, levels = pretty_intervals)
-  
+
   return(pretty_intervals[interval_var])
-  
+
 }
 
 #simple function to clean patient names for matching
@@ -263,5 +267,29 @@ clean_name = function(name){
   name %>%
     toupper() %>%
     gsub(" JR| SR|\\W| \\w$", "", .)
-  
+
+}
+
+#function to save and load nssp credentials
+load_nssp_credentials <- function(store_new_password = F){
+
+  #prompt for storage location if key not already stored
+  if(!"nssp-profile-path" %in% key_list()$service){
+
+    message("Enter file path where NSSP credentials will be stored. Use forward slashes and include a trailing slash.")
+    key_set("nssp-profile-path")
+
+  }
+
+  #if nssp credentials have been changed since last use, store new credentials
+  if(store_new_password == T){
+
+    myProfile <- Rnssp::create_profile()
+
+    save(myProfile, file = paste0(key_get("nssp-profile-path"), "myProfile.rda"))
+
+  }
+
+  load(paste0(key_get("nssp-profile-path"), "myProfile.rda"), envir = .GlobalEnv)
+
 }
