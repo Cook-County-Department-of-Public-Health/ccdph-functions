@@ -281,15 +281,18 @@ load_nssp_credentials <- function(store_new_password = F){
 
   }
 
+  #set full file path for myProfile object
+  profile_path <- paste0(key_get("nssp-profile-path"), "myProfile.rda")
+
   #if nssp credentials have been changed since last use, store new credentials
-  if(store_new_password == T){
+  if(store_new_password == T | file.exists(profile_path) == F){
 
     myProfile <- Rnssp::create_profile()
 
-    save(myProfile, file = paste0(key_get("nssp-profile-path"), "myProfile.rda"))
+    save(myProfile, file = profile_path)
 
   }
 
-  load(paste0(key_get("nssp-profile-path"), "myProfile.rda"), envir = .GlobalEnv)
+  load(profile_path, envir = .GlobalEnv)
 
 }
