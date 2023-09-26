@@ -287,7 +287,11 @@ load_nssp_credentials <- function(store_new_password = F){
   #if nssp credentials have been changed since last use, store new credentials
   if(store_new_password == T | file.exists(profile_path) == F){
 
-    myProfile <- Rnssp::create_profile()
+    #myProfile <- Rnssp::create_profile() #newer function, throws errors for people with older versions of the package, enable at future date
+    myProfile <- Credentials$new(
+      username = askme("Enter your username: "),
+      password = askme()
+    )
 
     save(myProfile, file = profile_path)
 
