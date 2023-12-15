@@ -108,13 +108,13 @@ batch_geocode <-function(dataset, id_field, street, city, zip) {
   
   # extract address fields from dataset and rename to geocoder expected attributes
   address_fields <- dataset %>%
-    select(STREET = {{ street }}, CITY = {{ city }}, ZIP = {{ zip }}, OBJECTID = {{id_field}}) %>%
+    select(ADDRESS = {{ street }}, CITY = {{ city }}, ZIP = {{ zip }}, OBJECTID = {{id_field}}) %>%
     drop_na()
   
   # create input json for POST request
   addresses_json <- jsonlite::toJSON(list(records=address_fields),flatten = T)
   addresses_text <- addresses_json %>% 
-    str_replace_all('\\{\\"STREET\\"', '\\{\\"attributes\\":\\{\"STREET\\"') %>% 
+    str_replace_all('\\{\\"ADDRESS\\"', '\\{\\"attributes\\":\\{\"ADDRESS\\"') %>% 
     str_replace_all('\\},\\{\\"attributes\\"','\\}\\},\\{\\"attributes\\"') %>%
     str_replace_all('\\}\\]\\}','\\}\\}\\]\\}')
   
@@ -132,8 +132,10 @@ batch_geocode <-function(dataset, id_field, street, city, zip) {
   result_df <- data.frame()
   for (i in seq_len(length(result_json$locations))){
     d <- with(result_json$locations[[i]], {data.frame(OBJECTID = attributes$ResultID,
-                                                      X = as.numeric(location$x),
-                                                      Y = as.numeric(location$y),
+                                                      #X = as.numeric(location$x),
+                                                      #Y = as.numeric(location$y),
+                                                      X = attributes$X,
+                                                      Y = attributes$Y,
                                                       score = score, 
                                                       status = attributes$Status,
                                                       address_match = attributes$Match_addr,
