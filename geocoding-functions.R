@@ -22,8 +22,9 @@ geocode_address <- function(street, city, zip, wkid = 3435) {
   geocoder_options <- "&SingleLine=&outFields=*&maxLocations=1&matchOutOfRange=false&langCode=&locationType=&sourceCountry=&category=&location=&distance=&searchExtent=&magicKey=&f=pjson"
   
   geocoder_call <- paste0(geocoder_service, 
-                          "?Street=", street, "&City=", city, "&ZIP=", zip, "&outSR=", wkid,
-                          geocoder_options)
+                          "?Address=", street, "&City=", city, "&Postal=", zip, "&outSR=", wkid,
+                          geocoder_options) %>%
+    gsub(pattern = " ", replacement = "+", .)
   
   returned_result <- fromJSON(file(geocoder_call), flatten = T) %>% .$candidates
   
@@ -38,10 +39,11 @@ geocode_address <- function(street, city, zip, wkid = 3435) {
                y = location.y,
                address_type = attributes.Addr_type,
                residence_city = attributes.User_fld)
-      )
+    )
   }
   
 }
+
 
 #address stored in single field
 geocode_address_sl<- function(address, wkid = 3435) {
