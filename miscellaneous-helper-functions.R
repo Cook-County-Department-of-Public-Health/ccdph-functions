@@ -214,7 +214,7 @@ clean_addresses = function(address, shorten_zip = T){
   address = gsub("\\bLN\\b", "LANE", address)
   address = gsub("\\bCT\\b", "COURT", address)
 
-  address = gsub(" (APT|#|ROOM|RM|UNIT)(| )\\d+", "", address)
+  address = gsub(" (APT|#|ROOM|RM|UNIT|FL|STE|SUITE)(| )\\d+", "", address)
 
   if (shorten_zip){address = gsub("-\\d{4}$", "", address)} #shortens 9 digit zip to 5 digit
 
