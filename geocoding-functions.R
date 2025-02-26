@@ -8,8 +8,8 @@ library(httr)
 
 
 #URLs for internal geocoders are private -- use key_set to store once per computer
-#key_set("geocoder-url")
-#key_set("batch-geocoder-url")
+#key_set("geocoder_url")
+#key_set("batch_geocoder_url")
 
 
 #### Single-Address Geocoder Functions ####
@@ -18,7 +18,7 @@ library(httr)
 #address stored in separate fields
 geocode_address <- function(street, city, zip, wkid = 3435) {
   
-  geocoder_service <- paste0(key_get("geocoder-url"), "rest/services/AddressLocator/CookAddressComposite/GeocodeServer/findAddressCandidates")
+  geocoder_service <- key_get("geocoder_url")
   geocoder_options <- "&SingleLine=&outFields=*&maxLocations=1&matchOutOfRange=false&langCode=&locationType=&sourceCountry=&category=&location=&distance=&searchExtent=&magicKey=&f=pjson"
   
   geocoder_call <- paste0(geocoder_service, 
@@ -48,7 +48,7 @@ geocode_address <- function(street, city, zip, wkid = 3435) {
 #address stored in single field
 geocode_address_sl<- function(address, wkid = 3435) {
   
-  geocoder_service <- paste0(key_get("geocoder-url"), "rest/services/AddressLocator/CookAddressComposite/GeocodeServer/findAddressCandidates?Street=&City=&SingleLine=")
+  geocoder_service <- paste0(key_get("geocoder_url"), "?Street=&City=&SingleLine=")
   geocoder_options <- "&outFields=*&maxLocations=1&matchOutOfRange=false&langCode=&locationType=&sourceCountry=&category=&location=&distance=&searchExtent=&magicKey=&f=pjson"
   
   geocoder_call <- paste0(geocoder_service, address, "&outSR=", wkid,
@@ -102,8 +102,8 @@ geocode_address_sl<- function(address, wkid = 3435) {
 #### Batch Geocoder Function ####
 
 #Batch geocoder is a little clunkier to use but much faster; use when you have a large number of address
-#For best results, clean all address fields before using (e.g. remove special characters and use 5 digit zips)
-#Only use with addresses stored in separate fields and when both city and zip are available
+#For best results, clean all address fields before using (e.g. remove special characters and use 5 digit zips). 
+#Only use with addresses stored in separate fields and when both city and zip are available. Geocoder call will fail if NAs are present.
 #Batch geocoder has a limit of 2000 addresses, see code example for splitting datasets
 
 batch_geocode <-function(dataset, id_field, street, city, zip) {
@@ -122,7 +122,7 @@ batch_geocode <-function(dataset, id_field, street, city, zip) {
   
   
   # send POST request
-  geocoder_service <- key_get("batch-geocoder-url")
+  geocoder_service <- key_get("batch_geocoder_url")
   addresses_json_rev <- rjson::fromJSON(addresses_text)
   addresses_json_rev <- jsonlite::toJSON(addresses_json_rev, flatten=TRUE, auto_unbox = TRUE)
   request_geo <- POST(url = geocoder_service,
@@ -174,7 +174,7 @@ batch_geocode_robust <-function(dataset, id_field, street, city, zip) {
   
   
   # format POST request
-  geocoder_service <- key_get("batch-geocoder-url")
+  geocoder_service <- key_get("batch_geocoder_url")
   addresses_json_rev <- rjson::fromJSON(addresses_text)
   addresses_json_rev <- jsonlite::toJSON(addresses_json_rev, flatten=TRUE, auto_unbox = TRUE)
   
@@ -236,5 +236,5 @@ batch_geocode_robust <-function(dataset, id_field, street, city, zip) {
 # geocoded_results <- dataset_to_be_geocoded %>%
 #   mutate(id_for_geocoding = row_number()) %>%  #create id for splitting into batches
 #   group_by(id_for_geocoding %/% 2000) %>%   #split dataset into list of datasets under batch geocoder limit
-#   group_map(~batch_geocode(.x, id_field = id_geocoding, street = address, city = city, zip = zip_code)) %>%   #apply function to each item of list
+#   group_map(~batch_geocode(.x, id_field = id_for_geocoding, street = address, city = city, zip = zip_code)) %>%   #apply function to each item of list
 #   bind_rows()  #bind geocoded mini datasets back into one large dataset

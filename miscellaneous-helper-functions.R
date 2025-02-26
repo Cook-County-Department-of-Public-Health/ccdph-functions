@@ -274,15 +274,15 @@ clean_name = function(name){
 load_nssp_credentials <- function(store_new_password = F){
 
   #prompt for storage location if key not already stored
-  if(!"nssp-profile-path" %in% key_list()$service){
+  if(!"nssp_profile_path" %in% key_list()$service){
 
     message("Enter file path where NSSP credentials will be stored. Use forward slashes and include a trailing slash.")
-    key_set("nssp-profile-path")
+    key_set("nssp_profile_path")
 
   }
 
   #set full file path for myProfile object
-  profile_path <- paste0(key_get("nssp-profile-path"), "myProfile.rda")
+  profile_path <- paste0(key_get("nssp_profile_path"), "myProfile.rda")
 
   #if nssp credentials have been changed since last use, store new credentials
   if(store_new_password == T | file.exists(profile_path) == F){
