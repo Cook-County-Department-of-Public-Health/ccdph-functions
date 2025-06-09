@@ -70,6 +70,7 @@ start_server = function(instance = 1){
   remDr <<- rsDriver(browser = "firefox", 
                      extraCapabilities = firefoxProfile, 
                      port = as.integer(4566 + instance),
+                     phantomver = NULL, #phantom js no longer being maintained, including throws error
                      chromever=NULL) #temp fix while chrome license driver causing failure; don't check for chrome
   
   #Extract the client for navigation
