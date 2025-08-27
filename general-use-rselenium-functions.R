@@ -60,15 +60,23 @@ acceptAlertwithWait <- function(wait = 3) {
 }
 
 #Start firefox server session, assign remDr and rD to global environment
-start_server = function(instance = 1){
+start_server = function(instance = 1, exe_location = "C:/Program Files/Mozilla Firefox/firefox.exe"){
   
   
   #Setting Firefox to avoid download type
   firefoxProfile <- makeFirefoxProfile(list(browser.helperApps.neverAsk.saveToDisk = "application/comma-separated-values ,text/csv"))
   
+  #Saving executable location in case not in standard spot
+  firefox_options <- list(
+    "moz:firefoxOptions" = list(
+      profile = firefoxProfile$firefox_profile,
+      binary  = exe_location
+    )
+  )
+  
   #Open selenium session
   remDr <<- rsDriver(browser = "firefox", 
-                     extraCapabilities = firefoxProfile, 
+                     extraCapabilities = firefox_options, 
                      port = as.integer(4566 + instance),
                      phantomver = NULL, #phantom js no longer being maintained, including throws error
                      chromever=NULL) #temp fix while chrome license driver causing failure; don't check for chrome
